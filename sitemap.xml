@@ -133,13 +133,6 @@
   </url>
   
   <url>
-    <loc>https://www.loveasd.com/tags/RabbitMQ/</loc>
-    <lastmod>2023-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.loveasd.com/tags/Docker/</loc>
     <lastmod>2023-05-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -148,6 +141,13 @@
   
   <url>
     <loc>https://www.loveasd.com/tags/Redis/</loc>
+    <lastmod>2023-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.loveasd.com/tags/RabbitMQ/</loc>
     <lastmod>2023-05-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -177,14 +177,14 @@
   </url>
   
   <url>
-    <loc>https://www.loveasd.com/categories/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/</loc>
+    <loc>https://www.loveasd.com/categories/%E7%BF%BB%E8%BD%A6%E6%97%A5%E5%BF%97/</loc>
     <lastmod>2023-05-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.loveasd.com/categories/%E7%BF%BB%E8%BD%A6%E6%97%A5%E5%BF%97/</loc>
+    <loc>https://www.loveasd.com/categories/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/</loc>
     <lastmod>2023-05-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
