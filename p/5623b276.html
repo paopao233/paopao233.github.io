@@ -4,14 +4,14 @@
         <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>即刻短文 | 万物天空</title>
+<title>利用正则表达式在Vscode上去除空行、注释 | 万物天空</title>
 <noscript>开启Javascript是必要的</noscript>
 <link rel="icon" type="image/x-icon" href="/img/avatar.webp">
 <link rel="apple-touch-icon" href="/img/avatar.webp">
 <meta name="apple-mobile-web-app-title" content="万物天空">
 <link rel="bookmark" href="/img/avatar.webp">
 <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/img/avatar.webp">
-<meta name="description" content="即刻短文">
+<meta name="description" content="">
 <meta name="theme-color" content="#1C1C1F">
 <link rel="stylesheet" href="/css/var.css">
 <link rel="stylesheet" href="/css/main.css">
@@ -48,7 +48,7 @@
 
     <script>LA.init({id:"K3qWvPX1Ar1Msaqc",ck:"K3qWvPX1Ar1Msaqc"})</script>
 
-<script>var GLOBALCONFIG = {"root":"/","runtime":"2021-07-18 00:00:00","lazyload":{"enable":false,"error":"/img/acrylic.png"},"hightlight":{"enable":true,"limit":200},"lightbox":true,"randomlinks":false,"lang":{"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"recent":"最近","yesterday":"昨天","berforeyesterday":"前天","daybefore":"天前","runtime":"天"},"sayhello":{"morning":"早上好","noon":"中午好","afternoon":"下午好","night":"晚上好","goodnight":"晚安","iam":"!  我是"},"search":{"empty":"搜索结果为空","hit":"已为您找到 ${query} 条结果","placeholder":"输入关键词快速查找"}},"covercolor":false,"algolia":{"appId":"Z7A3XW4R2I","apiKey":"12db1ad54372045549ef465881c17e743","indexName":"wanwutiankong"}};</script><script id="site-config">var PAGECONFIG = {"is_home":false,"is_post":false,"is_page":true,"page":"says","toc":false,"comment":true};</script>
+<script>var GLOBALCONFIG = {"root":"/","runtime":"2021-07-18 00:00:00","lazyload":{"enable":false,"error":"/img/acrylic.png"},"hightlight":{"enable":true,"limit":200},"lightbox":true,"randomlinks":false,"lang":{"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"recent":"最近","yesterday":"昨天","berforeyesterday":"前天","daybefore":"天前","runtime":"天"},"sayhello":{"morning":"早上好","noon":"中午好","afternoon":"下午好","night":"晚上好","goodnight":"晚安","iam":"!  我是"},"search":{"empty":"搜索结果为空","hit":"已为您找到 ${query} 条结果","placeholder":"输入关键词快速查找"}},"covercolor":false,"algolia":{"appId":"Z7A3XW4R2I","apiKey":"12db1ad54372045549ef465881c17e743","indexName":"wanwutiankong"}};</script><script id="site-config">var PAGECONFIG = {"is_home":false,"is_post":true,"is_page":false,"page":false,"toc":true,"comment":true};</script>
     <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
 </head>
     <body id="body">
@@ -297,8 +297,8 @@
     </div>
 </div>    
         
-            <div class="page" id="body-wrap">
-                <header class="not-top-img" id="page-header">
+            <div class="post" id="body-wrap">
+                <header class="post-bg" id="page-header">
     <nav id="nav" class="show">
     <div id="nav-group">
         <div id="blog_name">
@@ -337,7 +337,7 @@
         </div>
         <div id="page-name-mask">
             <div id="page-name">
-                <a id="page-name-text" onclick="acrylic.toTop()">即刻短文</a>
+                <a id="page-name-text" onclick="acrylic.toTop()">利用正则表达式在Vscode上去除空行、注释</a>
             </div>
         </div>
         <div id="menus">
@@ -453,94 +453,224 @@
         </div>
     </div>
 </nav>
+    
+        <div class="coverdiv" id="coverdiv">
+    <img id="post-cover" class="nolazyload" src="/img/hello.jpg" alt="cover">
+</div>
+<div id="post-info">
+    <div id="post-firstinfo">
+        <div class="meta-firstline">
+            <a class="post-meta-original" title="该文章为原创文章，注意版权协议">
+                原创
+            </a>
+            
+            <span class="post-meta-categories">
+                
+                    <a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                
+            </span>
+            
+            <div class="tag_share">
+                <div class="post-meta__tag-list">
+                    
+                        <a class="post-meta__tags" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                            <span class="tags-punctuation">#</span>
+                            <span class="tags-name">正则表达式</span>
+                        </a>
+                    
+                        <a class="post-meta__tags" href="/tags/VSCODE/">
+                            <span class="tags-punctuation">#</span>
+                            <span class="tags-name">VSCODE</span>
+                        </a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="post-title">利用正则表达式在Vscode上去除空行、注释</h1>
+    <div id="post-meta">
+        <div class="meta-secondline">
+            <span class="post-meta-date" title="发布于">
+                <i class="post-meta-icon fa-fw fas fa-calendar"></i>
+                <time datetime="2023-06-01T14:28:00+08:00"></time>
+            </span>
+            
+                <span class="post-meta-date" title="更新于">
+                    <i class="post-meta-icon fa-solid fa-clock-rotate-left"></i>
+                    <time datetime="2023-06-01T13:27:24+08:00"></time>
+                </span>
+            
+            
+                <span class="post-meta-position" title="作者IP归属地为广东">
+                    <i class="fas fa-location-dot post-meta-icon"></i>
+                    <span>广东</span>
+                </span>
+            
+            
+                
+                    <span class="post-meta-wordcount">
+                        <i class="fas fa-file-word fa-fw post-meta-icon" title="文章字数"></i>
+                        <span class="word-count">246</span>
+                    </span>
+                
+                
+                    <span class="post-meta-time">
+                        <i class="fas fa-clock post-meta-icon" title="阅读耗时"></i>
+                        <span>1 min</span>
+                    </span>
+                
+            
+            
+                <span class="post-meta-pv" title="文章热度">
+                    <i class="fab fa-hotjar fa-fw post-meta-icon"></i>
+                    
+                        <span id="twikoo_visitors"><i class="fas fa-spinner fa-pulse"></i></span>
+                            
+                </span>
+            
+            
+                <span class="post-meta-commentcount" title="评论数">
+                    <i class="fa-solid fa-message"></i>
+                    <a href="#post-comment">
+                        <span id="twikoo-count"><i class="fas fa-spinner fa-pulse"></i></span>
+                    </a>
+                </span>
+                
+        </div>
+    </div>
+</div>
+<section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg"
+    xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+    <defs>
+        <path id="gentle-wave"
+            d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path>
+    </defs>
+    <g class="parallax">
+        <use href="#gentle-wave" x="48" y="0"></use>
+        <use href="#gentle-wave" x="48" y="3"></use>
+        <use href="#gentle-wave" x="48" y="5"></use>
+        <use href="#gentle-wave" x="48" y="7"></use>
+    </g>
+</svg>
+</section>
+
         
 </header>
-                <main class="layout hide-aside" id="content-inner">
-    <div id="page">
-        
-                <div class="author-content author-content-item essayPage single nolazyload" style="background: url(https://oss.loveasd.com/loveasd-oss/2023/05/7e86dfb7aa963d98b45e29cdf17a511a.png) no-repeat center;background-size: cover;">
-    <div class="card-content">
-        <div class="author-content-item-tips">即刻短文</div>
-        <span class="author-content-item-title">随便写写</span>
-        <div class="content-bottom">
-            <div class="tips">随便看看</div>
-        </div>
-    </div>
-</div>
-<div id="bber">
-    <section class="timeline page-1">
-        <ul class="list" id="waterfall">
-            
-                
-                <li class="item">
-                    <div class="bber-content">
-    <p class="datacont">有时候真的很想有很多钱，让父母享享福，不用再这么劳累。。。</p>
-        
-</div>
-                    <hr>
-                    <div class="bber-bottom">
-    <div class="bber-info">
-        <div class="bber-info-time">
-            <i class="fas fa-calendar-days"></i>
-            <time class="datetime" datetime="2023-05-12T08:00:00+08:00"></time>
-        </div>
-            
-    </div>
-</div>
-                </li>
-            
-                
-                <li class="item">
-                    <div class="bber-content">
-    <p class="datacont">测试一下图片</p>
-    
-        <div class="bber-content-img">
-            
-                <img src="https://oss.loveasd.com/loveasd-oss/2023/05/7e86dfb7aa963d98b45e29cdf17a511a.png">
-            
-        </div>
-        
-</div>
-                    <hr>
-                    <div class="bber-bottom">
-    <div class="bber-info">
-        <div class="bber-info-time">
-            <i class="fas fa-calendar-days"></i>
-            <time class="datetime" datetime="2023-05-12T08:00:00+08:00"></time>
-        </div>
-            
-    </div>
-</div>
-                </li>
-            
-                
-                <li class="item">
-                    <div class="bber-content">
-    <p class="datacont">博客从Typecho转为Hexo啦，由于资金不足，借了师姐的域名并且把博客搭建在Vercl，纯白嫖怪的我🤪。会把在本地的文字和blog.guluqiu.cc的文章一点一点搬运到这里来。</p>
-        
-</div>
-                    <hr>
-                    <div class="bber-bottom">
-    <div class="bber-info">
-        <div class="bber-info-time">
-            <i class="fas fa-calendar-days"></i>
-            <time class="datetime" datetime="2023-05-11T08:00:00+08:00"></time>
-        </div>
-        
-            <a class="bber-content-link" href="https://www.loveasd.com" title="跳转到短文指引的链接">
-                链接
-            </a>   
-            
-    </div>
-</div>
-                </li>
-            
-        </ul>
-    </section>
-</div>
-<div id="bber-tips" style="color: var(--heo-secondtext);">- 只展示最近30条短文 -</div>
+                <main class="layout" id="content-inner">
+    <div id="post">
+        <article class="post-content" id="article-container">
+            <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>最近被软著搞到疯了，满60页代码、不能出现空行注释等情况。</p>
+<p>代码均是在项目copy过来的，所以肯定是有空行和注释的，在word上可以一键去除空行，但是注释就有点麻烦。</p>
+<p>于是想到把文字复制到Vscode上面，通过正则来去除这些。</p>
+<p>然后6000多行的代码，去除空行和注释以后，剩下4000多，累了…</p>
+<h1 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h1><p>首先在vscode按住CTRL+H，然后输入下面的正则</p>
+<p><img src="https://oss.loveasd.com/loveasd-oss/2023/06/b6d2bd002ec3b9be4a3eea319eff3eca.png" alt="image-20230601131147784"></p>
+<h1 id="选中全部查询的"><a href="#选中全部查询的" class="headerlink" title="选中全部查询的"></a>选中全部查询的</h1><p>输入相对应的正则以后，应该就可以看到有匹配的，这时候就要选择多个查找出来的</p>
+<p><img src="https://oss.loveasd.com/loveasd-oss/2023/06/0b5809ebeb6279fc362300c068172a4d.png" alt="image-20230601131637155"></p>
+<h1 id="去除注释"><a href="#去除注释" class="headerlink" title="去除注释"></a>去除注释</h1><h2 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//[\s\S]*?\n</span><br></pre></td></tr></table></figure>
 
-             
+<h2 id="块注释"><a href="#块注释" class="headerlink" title="块注释"></a>块注释</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/\*(.|\r\n|\n)*?\*/</span><br></pre></td></tr></table></figure>
+
+<h2 id="所有注释"><a href="#所有注释" class="headerlink" title="所有注释"></a>所有注释</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\/\*[\s\S]*\*\/|\/\/.*</span><br></pre></td></tr></table></figure>
+
+<h2 id="html注释"><a href="#html注释" class="headerlink" title="html注释"></a>html注释</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--(.*?)--&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="去除空行"><a href="#去除空行" class="headerlink" title="去除空行"></a>去除空行</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\s*(?=\r?$)\n</span><br></pre></td></tr></table></figure>
+
+<h1 id="参照"><a href="#参照" class="headerlink" title="参照"></a>参照</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39779233/article/details/120416227?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-120416227-blog-128870790.235%5Ev36%5Epc_relevant_default_base3&spm=1001.2101.3001.4242.2&utm_relevant_index=4">Vscode 快捷操作_vscode删除一列_</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yjjjjz/article/details/89521414?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-89521414-blog-121166373.235%5Ev36%5Epc_relevant_default_base3&spm=1001.2101.3001.4242.2&utm_relevant_index=2">(29条消息) VScode使用正则表达式快速删除注释</a></li>
+</ul>
+
+        </article>
+        <div class="post-tools" id="post-tools">
+            <div class="post-tools-left">
+                
+                <div class="share-link mobile">
+    <div class="share-qrcode">
+        <div class="share-button" title="使用手机访问这篇文章">
+            <i class="fas fa-qrcode"></i>
+        </div>
+        <div class="share-main">
+            <div class="share-main-all">
+                <div id="qrcode" title="https://www.loveasd.com/p/5623b276.html">
+                </div>
+                <div class="reward-dec">使用手机访问这篇文章</div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            new QRCode(document.getElementById("qrcode"), "https://www.loveasd.com/p/5623b276.html");
+        </script>
+    </div>
+</div>
+                <div class="share-link weibo"><a class="share-button" target="_blank"
+    href="https://service.weibo.com/share/share.php?title=利用正则表达式在Vscode上去除空行、注释&amp;url=https://www.loveasd.com/p/5623b276.html&amp;pic=/img/hello.jpg"
+    title="分享到微博" rel="noopener external nofollow noreferrer noopener">
+    <i class="fab fa-weibo" style="font-size:22px"></i>
+</a>
+</div>
+<div class="share-link copyurl">
+<div class="share-button" id="post-share-url" title="复制链接" onclick="acrylic.copyPageUrl()">
+    <i class="fas fa-link"></i>
+</div>
+</div>
+            </div>
+            <div class="post-tools-right">
+                <div class="tag_share">
+                    <div class="post-meta__tag-list">
+                        
+                            <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-meta__tags">
+                                <span class="tags-punctuation">#</span>
+                                正则表达式
+                                <span class="tagsPageCount">1</span>
+                            </a>
+                        
+                            <a href="/tags/VSCODE/" class="post-meta__tags">
+                                <span class="tags-punctuation">#</span>
+                                VSCODE
+                                <span class="tagsPageCount">1</span>
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="post-copyright">
+    <div class="post-copyright__author">
+        <a class="post-copyright__original" title="该文章为原创文章，注意版权协议">原创</a>
+        <a class="post-copyright-title" href="#">
+            <span>利用正则表达式在Vscode上去除空行、注释</span>
+        </a>
+    </div>
+    <div class="post-copyright__type">
+        <span class="post-copyright-info" id="post-copyright-url">
+            <a href="/p/5623b276.html">https://www.loveasd.com/p/5623b276.html</a>
+        </span>
+        <button class="post-copyright-copybtn" onclick="acrylic.copyPageUrl()">
+            <i class="fas fa-paste copy-btn"></i>
+        </button>
+    </div>
+    <div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用 <a
+                href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> 协议，完整转载请注明来自 <a
+                href="/">万物天空</a>
+            </span>
+        </div>
+</div>
+        <nav class="pagination-post" id="pagination">
+    
+        
+            <div class="next-post pull-full">
+                <a href="/p/16a9afcf.html">
+                    <div class="pagination-info">
+                        <div class="label">下一篇</div>
+                        <div class="next_info">RabbitMQ入门学习</div>
+                    </div>
+                </a>
+            </div>
+                
+        
+    
+</nav>
         
             <div id="post-comment">
     <div class="comment-head">
@@ -563,6 +693,20 @@
             }
         )
         await twikoo.init(initOptions)
+        
+            var countOptions = Object.assign(
+                {"envId":"https://wwtk-twikoo.vercel.app/","path":"window.location.pathname"},
+                { 
+                    urls: [window.location.pathname],
+                    includeReply: false
+                }
+            )
+            const res = await twikoo.getCommentsCount(countOptions)
+            try{
+                document.getElementById('twikoo-count').innerText = res[0].count
+            }catch (e) {
+                document.getElementById('twikoo-count').innerText = '加载错误'
+            }
              
     }
 </script>
@@ -570,9 +714,164 @@
 </div>
             
     </div>
-       
-</main>     
-
+    <div class="aside-content" id="aside-content">
+    
+    
+        
+        <div class="card-widget card-info">
+    <div class="card-content">
+        <div class="card-info-avatar is-center">
+            <div class="author-info__sayhi" id="author-info__sayhi">
+            </div>
+            <div class="author-info__name">
+                啊乐
+            </div>
+            <div class="author-info__description">这有分享<b>技术</b>、<b>生活</b>。<br>相信你可以在这里找到对你有用的知识和教程。</div>
+        </div>
+    </div>
+    <div class="banner-button-group">
+        <a class="banner-button" href="/">
+            <i class="fas fa-circle-chevron-right"></i>
+            <span class="banner-button-text">个人主页</span>
+        </a>
+    </div>
+    <div class="card-info-social-icons is-center">
+        
+            <a class="social-icon" target="_blank" rel="noopener" href="https://github.com/paopao233" title="Github">
+                <i class="fa-brands fa-github"></i>
+            </a>
+        
+            <a class="social-icon" href="mailto:1319082534@qq.com" title="Mail">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+        
+    </div>
+</div>
+     
+    
+    <div class="sticky_layout">
+        
+            <div class="card-widget" id="card-toc">
+    <div class="item-headline">
+        <i class="fas fa-bars"></i>
+        <span>文章目录</span>
+    </div>
+    <div class="toc-content" id="toc-content">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2"><span class="toc-text">查询</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%89%E4%B8%AD%E5%85%A8%E9%83%A8%E6%9F%A5%E8%AF%A2%E7%9A%84"><span class="toc-text">选中全部查询的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%BB%E9%99%A4%E6%B3%A8%E9%87%8A"><span class="toc-text">去除注释</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%A1%8C%E6%B3%A8%E9%87%8A"><span class="toc-text">单行注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%97%E6%B3%A8%E9%87%8A"><span class="toc-text">块注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E6%B3%A8%E9%87%8A"><span class="toc-text">所有注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#html%E6%B3%A8%E9%87%8A"><span class="toc-text">html注释</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%BB%E9%99%A4%E7%A9%BA%E8%A1%8C"><span class="toc-text">去除空行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E7%85%A7"><span class="toc-text">参照</span></a></li></ol>
+    </div>
+</div>
+            
+        
+            
+        <div class="card-widget card-recent-post">
+    <div class="item-headline">
+        <i class="fas fa-list-ol"></i>
+        <span>最近发布</span>
+    </div>
+    <div class="aside-list">
+        
+        
+            <div class="aside-list-item">
+                <a class="thumbnail" href="/p/5623b276.html" title="利用正则表达式在Vscode上去除空行、注释">
+                    <img
+                        alt="利用正则表达式在Vscode上去除空行、注释"
+                        src="/img/hello.jpg">
+                </a>
+                <div class="content">
+                    
+                        <a class="article-recent_post_categories" href="/p/5623b276.html">
+                            学习笔记
+                        </a>
+                    
+                    <a class="title" href="/p/5623b276.html" title="利用正则表达式在Vscode上去除空行、注释">
+                        利用正则表达式在Vscode上去除空行、注释
+                    </a>
+                </div>
+            </div>
+                
+        
+            <div class="aside-list-item">
+                <a class="thumbnail" href="/p/16a9afcf.html" title="RabbitMQ入门学习">
+                    <img
+                        alt="RabbitMQ入门学习"
+                        src="/img/hello.jpg">
+                </a>
+                <div class="content">
+                    
+                        <a class="article-recent_post_categories" href="/p/16a9afcf.html">
+                            学习笔记
+                        </a>
+                    
+                    <a class="title" href="/p/16a9afcf.html" title="RabbitMQ入门学习">
+                        RabbitMQ入门学习
+                    </a>
+                </div>
+            </div>
+                
+        
+            <div class="aside-list-item">
+                <a class="thumbnail" href="/p/9a4d61d1.html" title="用油猴脚本来自动填写问卷星的调查问卷，分分钟100+">
+                    <img
+                        alt="用油猴脚本来自动填写问卷星的调查问卷，分分钟100+"
+                        src="https://oss.loveasd.com/loveasd-oss/2023/05/13e4724a2eebbcadb8cd3e6e3d792e4f.png">
+                </a>
+                <div class="content">
+                    
+                        <a class="article-recent_post_categories" href="/p/9a4d61d1.html">
+                            科技人生
+                        </a>
+                    
+                    <a class="title" href="/p/9a4d61d1.html" title="用油猴脚本来自动填写问卷星的调查问卷，分分钟100+">
+                        用油猴脚本来自动填写问卷星的调查问卷，分分钟100+
+                    </a>
+                </div>
+            </div>
+                
+        
+            <div class="aside-list-item">
+                <a class="thumbnail" href="/p/352b77f0.html" title="RabbitMq 点击Exchanges出现Management API returned status code 500错误解决方法">
+                    <img
+                        alt="RabbitMq 点击Exchanges出现Management API returned status code 500错误解决方法"
+                        src="https://oss.loveasd.com/loveasd-oss/2023/05/ed9e8138ce38015f283eafee2a42d870.png">
+                </a>
+                <div class="content">
+                    
+                        <a class="article-recent_post_categories" href="/p/352b77f0.html">
+                            开发日志
+                        </a>
+                    
+                    <a class="title" href="/p/352b77f0.html" title="RabbitMq 点击Exchanges出现Management API returned status code 500错误解决方法">
+                        RabbitMq 点击Exchanges出现Management API returned status code 500错误解决方法
+                    </a>
+                </div>
+            </div>
+                
+        
+            <div class="aside-list-item">
+                <a class="thumbnail" href="/p/c5eeaec6.html" title="记录一次线上服务事故">
+                    <img
+                        alt="记录一次线上服务事故"
+                        src="/img/hello.jpg">
+                </a>
+                <div class="content">
+                    
+                        <a class="article-recent_post_categories" href="/p/c5eeaec6.html">
+                            翻车日志
+                        </a>
+                    
+                    <a class="title" href="/p/c5eeaec6.html" title="记录一次线上服务事故">
+                        记录一次线上服务事故
+                    </a>
+                </div>
+            </div>
+            
+    </div>
+</div>
+     
+        
+    </div>
+</div> 
+</main>
                 <footer id="footer">
                     <div id="footer_deal">
     
@@ -699,17 +998,6 @@
 
 
 <div id="js-pjax">
-    
-        
-<script src="/lib/waterfall.min.js"></script>
-
-        <script>
-            window.addEventListener('resize', utils.throttle(function () {
-                if (document.getElementById('waterfall')) {
-                    acrylic.reflashEssayWaterFall();
-                }
-            }), 500);
-        </script>
     
     
         <script async src="https://npm.elemecdn.com/penndu@1.0.0/bsz.js"></script>
