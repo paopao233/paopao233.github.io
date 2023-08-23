@@ -41,8 +41,6 @@
   --album-spacing-l: 24px;
   --album-spacing-xl: 32px;
   --album-spacing-xxl: 64px;
-  /** loveasd */
-  --loveasd-globalnav-backdrop-filter: saturate(180%) blur(20px);
 }
 
 ::selection {

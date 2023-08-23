@@ -6,7 +6,7 @@
   <link href="https://www.loveasd.com/atom.xml" rel="self"/>
   
   <link href="https://www.loveasd.com/"/>
-  <updated>2023-07-21T01:22:31.023Z</updated>
+  <updated>2023-07-21T01:24:20.786Z</updated>
   <id>https://www.loveasd.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.loveasd.com/p/cee62a0f.html"/>
     <id>https://www.loveasd.com/p/cee62a0f.html</id>
     <published>2023-07-21T01:15:36.633Z</published>
-    <updated>2023-07-21T01:22:31.023Z</updated>
+    <updated>2023-07-21T01:24:20.786Z</updated>
     
     <content type="html"><![CDATA[<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>刚到公司，摸一下鱼。<br>昨天朋友问了我一个vue3的一个对话框里面input框和单选框都无法输入或者选中，看了代码也没有禁用啥的操作。<br>一切都正常，最后疯狂开启谷歌，发现命名冲突问题了。</p><h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><p><img src="https://oss.loveasd.com/loveasd-oss/2023/07/691260e6551df873b35d9dcebe54d020.png" alt="image-20230721092040352"></p><p>从上面可以看到，响应式的名字与model的名字一样，导致了冲突，所以就会出现输入框无法输入，选择框无法选择问题。</p><h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><p>修改名字为不同即可！</p>]]></content>
     
@@ -45,7 +45,7 @@
     <link href="https://www.loveasd.com/p/d60be7ec.html"/>
     <id>https://www.loveasd.com/p/d60be7ec.html</id>
     <published>2023-07-11T02:48:00.000Z</published>
-    <updated>2023-07-21T01:16:18.488Z</updated>
+    <updated>2023-07-21T01:24:20.786Z</updated>
     
     <content type="html"><![CDATA[<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近实习了，公司产品用的人大金仓，底层数据库是postsql。<br>然后最近在建表，习惯了navicate，用这个一脸懵逼。<br>而且因为需要设置主键自增，在可视化操作那里无法单独添加，很奇怪，会疯狂报错。<br>我观察了其他大佬建的表，都是有一个nextval…啥的，谷歌了一波之后发现这是postsql的东西。<br>所以得手动写sql，别人推荐的是加一个关键字就可以了，但是我的一直不可以，所以这个教程先记录一下手动建立序列的方法。</p><h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><h4 id="第一步-创建序列"><a href="#第一步-创建序列" class="headerlink" title="第一步 创建序列"></a>第一步 创建序列</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE SEQUENCE 模式.table_name_id_seq; </span><br><span class="line"></span><br><span class="line">-- 查询</span><br><span class="line">select nextval(&#x27;模式.table_name_id_seq&#x27;::regclass);</span><br><span class="line"></span><br></pre></td></tr></table></figure><h4 id="第二步-创建表"><a href="#第二步-创建表" class="headerlink" title="第二步 创建表"></a>第二步 创建表</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 模式.sys_oper_sql_log (</span><br><span class="line">    id BIGINT PRIMARY KEY DEFAULT nextval(&#x27;trs_cloud.sys_oper_sql_log_id_seq&#x27;::regclass),</span><br><span class="line">    sql_content TEXT ,</span><br><span class="line">    oper_id BIGINT </span><br><span class="line">);</span><br></pre></td></tr></table></figure><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>人大金仓不像navicate一样，可视化插入，会提示报错，<br>可能原因是他要先select那个nextval，然后可视化插入会提前先自检不能为空<br>所以用insert into</p><h3 id="借鉴"><a href="#借鉴" class="headerlink" title="借鉴"></a>借鉴</h3><ul><li><a href="https://blog.csdn.net/aaaaaaa1516682014292/article/details/128130697">https://blog.csdn.net/aaaaaaa1516682014292/article/details/128130697</a></li></ul>]]></content>
     
