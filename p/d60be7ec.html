@@ -1,1152 +1,204 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-    <head>
-        <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>人大金仓创建postsql表并设置主键自增 | 万物天空</title>
-<noscript>开启Javascript是必要的</noscript>
-<link rel="icon" type="image/x-icon" href="/img/avatar.webp">
-<link rel="apple-touch-icon" href="/img/avatar.webp">
-<meta name="apple-mobile-web-app-title" content="万物天空">
-<link rel="bookmark" href="/img/avatar.webp">
-<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/img/avatar.webp">
-<meta name="description" content="">
-<meta name="theme-color" content="#1C1C1F">
-<link rel="stylesheet" href="/css/var.css">
-<link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/custom.css">
-
-
-    <script data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/pace/1.2.4/pace.min.js"></script>
-
-
-<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<html lang="zh-CN">
+  <head>
     
 
-<link rel="stylesheet" href="/lib/snackbar.min.css">
-
-
-<script src="/lib/qrcode.min.js"></script>
-
-
     
-<script src="https://cdn.staticfile.org/twikoo/1.6.10/twikoo.all.min.js"></script>
-
-
-
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
     
-<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/instantsearch.js/4.39.0/instantsearch.production.min.js"></script>
 
-    
-<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/algoliasearch/4.12.1/algoliasearch-lite.umd.min.js"></script>
+<meta charset="utf-8" >
 
+<title>人大金仓创建Postgresql表并设置主键自增</title>
+<meta name="keywords" content="人大金仓创建Postgresql表并设置主键自增, 万物天空">
+<meta name="description" content="写在前面最近实习了，公司产品用的人大金仓，底层数据库是Postgresql。然后最近在建表，习惯了navicate，用这个一脸懵逼。而且因为需要设置主键自增，在可视化操作那里无法单独添加，很奇怪，会疯狂报错。我观察了其他大佬建的表，都是有一">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="人大金仓创建Postgresql表并设置主键自增">
+<meta property="og:description" content="写在前面最近实习了，公司产品用的人大金仓，底层数据库是Postgresql。然后最近在建表，习惯了navicate，用这个一脸懵逼。而且因为需要设置主键自增，在可视化操作那里无法单独添加，很奇怪，会疯狂报错。我观察了其他大佬建的表，都是有一">
 
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
 
-    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-
-    <script>LA.init({id:"K3qWvPX1Ar1Msaqc",ck:"K3qWvPX1Ar1Msaqc"})</script>
-
-<script>var GLOBALCONFIG = {"root":"/","runtime":"2021-07-18 00:00:00","lazyload":{"enable":false,"error":"/img/acrylic.png"},"hightlight":{"enable":true,"limit":200},"lightbox":true,"randomlinks":false,"lang":{"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"recent":"最近","yesterday":"昨天","berforeyesterday":"前天","daybefore":"天前","runtime":"天"},"sayhello":{"morning":"早上好","noon":"中午好","afternoon":"下午好","night":"晚上好","goodnight":"晚安","iam":"!  我是"},"search":{"empty":"搜索结果为空","hit":"已为您找到 ${query} 条结果","placeholder":"输入关键词快速查找"}},"covercolor":false,"comment":{"enable":true,"twikooUrl":"https://wwtk-twikoo.vercel.app/"},"algolia":{"appId":"Z7A3XW4R2I","apiKey":"12db1ad54372045549ef465881c17e743","indexName":"wanwutiankong"}};</script><script id="site-config">var PAGECONFIG = {"is_home":false,"is_post":true,"is_page":false,"page":false,"toc":true,"comment":true};</script>
-    <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
+  <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
 </head>
-    <body id="body">
-        
-            <div id="loading-box" onclick="preloader.endLoading();" class style="zoom: 1;">
-    <div class="loading-bg">
-        <img class="loading-img nolazyload" alt="loading image"
-            src="/img/avatar.webp">
-        </div>
-</div>
-<script>
-    const preloader = {
-        endLoading: () => {
-            document.getElementById('loading-box').classList.add("loaded")
-        },
-        initLoading: () => {
-            document.getElementById('loading-box').classList.remove("loaded")
-        },
-        removePaceDone: () => {
-            document.getElementById('body').classList = 'pace-done'
-        }
-    }
-    window.addEventListener('load',()=> { preloader.endLoading() })
-    document.addEventListener('pjax:send', () => { preloader.initLoading() })
-    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-</script>
-<style>
-    #loading-box {
-        -webkit-user-select: none;
-    }
+  <body>
+    <div id="app" class="main">
 
-    #loading-box .loading-bg {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        background: var(--heo-background);
-        z-index: 1999;
-        opacity: 1;
-        transition: 0.2s;
-        pointer-events: all;
-        animation: showLoading 0.3s 0s backwards;
-    }
-
-    #loading-box.loaded .loading-bg {
-        pointer-events: none;
-        transition: 0.2s;
-        animation: hideLoading 0.3s 0s forwards;
-    }
-
-    #loading-box .loading-img {
-        width: 100px;
-        margin: auto;
-        animation-duration: 0.2s;
-        animation-name: loadingAction;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-    }
-
-    @keyframes loadingAction {
-        from {
-            opacity: 1;
-        }
-
-        to {
-            opacity: 0.6;
-        }
-    }
-
-    @keyframes hideLoading {
-        from {
-            opacity: 1;
-        }
-
-        to {
-            opacity: 0;
-        }
-    }
-
-    @keyframes showLoading {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
-    }
-</style>
-        
-        <div id="console" style="zoom: 1;" class="">
-    <div class="close-btn" onclick="acrylic.hideConsole()" href="javascript:void(0);">
-        <i class="fas fa-circle-xmark"></i>
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://www.loveasd.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://www.loveasd.com">
+        <h1 class="site-title">万物天空</h1>
+      </a>
     </div>
-    
-        <div class="console-card-group">
-            <div class="console-card-group-left">
-                <div class="console-card" id="card-newest-comments" onclick="acrylic.hideConsole()">
-                    <div class="card-content">
-                        <div class="author-content-item-tips">互动</div>
-                        <div class="author-content-item-title">最新评论</div>
-                    </div>
-                    <div class="aside-list"></div>
-                </div>
-    
-            </div>
-            <div class="console-card-group-right">
-                <div class="console-card tags" onclick="acrylic.hideConsole()">
-                    <div class="card-content">
-                        <div class="author-content-item-tips">标签</div>
-                        <div class="author-content-item-title">寻找感兴趣的领域</div>
-                    </div>
-                    <div class="card-tag-cloud">
-                        
-                            <a href="/tags/Docker/" style="font-size: 0.8rem; color: #d3d3d3">Docker<sup>1</sup></a>
-                        
-                            <a href="/tags/Redis/" style="font-size: 0.8rem; color: #d3d3d3">Redis<sup>1</sup></a>
-                        
-                            <a href="/tags/Backblaze/" style="font-size: 0.8rem; color: #d3d3d3">Backblaze<sup>1</sup></a>
-                        
-                            <a href="/tags/CloudFlare/" style="font-size: 0.8rem; color: #d3d3d3">CloudFlare<sup>1</sup></a>
-                        
-                            <a href="/tags/RabbitMQ/" style="font-size: 0.8rem; color: #d3d3d3">RabbitMQ<sup>2</sup></a>
-                        
-                            <a href="/tags/%E9%97%AE%E5%8D%B7%E6%98%9F/" style="font-size: 0.8rem; color: #d3d3d3">问卷星<sup>1</sup></a>
-                        
-                            <a href="/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/" style="font-size: 0.8rem; color: #d3d3d3">油猴脚本<sup>1</sup></a>
-                        
-                            <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 0.8rem; color: #d3d3d3">正则表达式<sup>1</sup></a>
-                        
-                            <a href="/tags/VSCODE/" style="font-size: 0.8rem; color: #d3d3d3">VSCODE<sup>1</sup></a>
-                        
-                            <a href="/tags/%E4%BA%BA%E5%A4%A7%E9%87%91%E4%BB%93-postsql/" style="font-size: 0.8rem; color: #d3d3d3">人大金仓,postsql<sup>1</sup></a>
-                        
-                            <a href="/tags/vue3/" style="font-size: 0.8rem; color: #d3d3d3">vue3<sup>1</sup></a>
-                        
-                    </div>
-                </div>
-                <div class="console-card history" onclick="acrylic.hideConsole()">
-                    <ul class="card-archive-list">
-    
-     
-        <li class="card-archive-list-item"><a class="card-archive-list-link" onclick="pjax.loadUrl('/archives/2023/07/')" data-pjax-state=""><span
-            class="card-archive-list-date">2023/07</span>
-            <div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span
-                    class="card-archive-list-count-unit">篇</span></div>
-            </a>
-        </li>
-     
-        <li class="card-archive-list-item"><a class="card-archive-list-link" onclick="pjax.loadUrl('/archives/2023/06/')" data-pjax-state=""><span
-            class="card-archive-list-date">2023/06</span>
-            <div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span
-                    class="card-archive-list-count-unit">篇</span></div>
-            </a>
-        </li>
-     
-        <li class="card-archive-list-item"><a class="card-archive-list-link" onclick="pjax.loadUrl('/archives/2023/05/')" data-pjax-state=""><span
-            class="card-archive-list-date">2023/05</span>
-            <div class="card-archive-list-count-group"><span class="card-archive-list-count">7</span><span
-                    class="card-archive-list-count-unit">篇</span></div>
-            </a>
-        </li>
-        
-</ul>
-
-                </div>
-            </div>
-        </div>
-    
-    
-    <div class="button-group">
-        <div class="console-btn-item"> <a class="darkmode_switchbutton" onclick="acrylic.switchDarkMode()" title="显示模式切换"
-                href="javascript:void(0);" rel="external nofollow" data-pjax-state=""><i class="fas fa-moon"
-                    style="font-size: 1rem;"></i></a></div>
-        
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
     </div>
-    <div class="console-mask" onclick="acrylic.hideConsole()" href="javascript:void(0);" rel="external nofollow"></div>
-</div>
-        <div id="sidebar" style="zoom: 1;">
-    <div id="menu-mask" style="display: none;"></div>
-    <div id="sidebar-menus" class>
-        <span class="sidebar-menu-item-title">功能</span>
-        <div class="sidebar-menu-item">
-            <a class="darkmode_switchbutton menu-child" onclick="acrylic.switchDarkMode()" title="显示模式切换"
-                href="javascript:void(0);" rel="external nofollow">
-                <i class="fas fa-moon" style="font-size: 1rem;"></i>
-                <span>显示模式</span>
-            </a>
-        </div>
-        
-            <div class="back-menu-list-groups">
-    
-      
-      <div class="back-menu-list-group">
-        <div class="back-menu-list-title">
-          我的
-        </div>
-        <div class="back-menu-list">
-          
-            
-            <a class="back-menu-item" href="/" rel="external nofollow" title="博客">
-              <img class="back-menu-item-icon" src="/img/avatar.webp" loading="lazy">
-              <span class="back-menu-item-text">
-                博客
-              </span>
-            </a>
-          
-        </div>
-      </div>
-    
   </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
   
-        
-        <div class="menus_items">
     
-        <div class="menus_item">
-            
-                <a class="site-page" href="javascript:void(0);" rel="external nofollow">
-                    <span> 文库</span>
-                </a>
-                <ul class="menus_item_child">
-                    
-                        <li>
-                            <a class="site-page child" href="/archives/">
-                                <i class="fas fa-box-archive"></i>
-                                <span> 文章列表</span>
-                            </a>
-                        </li>
-                    
-                        <li>
-                            <a class="site-page child" href="/categories/">
-                                <i class="fas fa-cube"></i>
-                                <span> 全部分类</span>
-                            </a>
-                        </li>
-                    
-                        <li>
-                            <a class="site-page child" href="/tags/">
-                                <i class="fas fa-tags"></i>
-                                <span> 全部标签</span>
-                            </a>
-                        </li>
-                    
-                </ul>
-             
-        </div>
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
     
-        <div class="menus_item">
-            
-                <a class="site-page" href="javascript:void(0);" rel="external nofollow">
-                    <span> 友链</span>
-                </a>
-                <ul class="menus_item_child">
-                    
-                        <li>
-                            <a class="site-page child" href="/links/">
-                                <i class="fas fa-user-group"></i>
-                                <span> 友情链接</span>
-                            </a>
-                        </li>
-                    
-                        <li>
-                            <a class="site-page child" href="/about/">
-                                <i class="fas fa-user-group"></i>
-                                <span> 关于本站</span>
-                            </a>
-                        </li>
-                    
-                </ul>
-             
-        </div>
-    
-</div>
-        <span class="sidebar-menu-item-title">标签</span>
-        <div class="card-widget card-tags card-archives card-webinfo card-allinfo">
-            <div class="item-headline">
-                <i class="fas fa-tags"></i>
-                <span>标签</span>
-            </div>
-            <div class="card-tag-cloud">
-                
-                    <a href="/tags/Docker/" style="font-size: 1em; color: #d3d3d3">Docker
-                        <sup>1</sup>
-                    </a>
-                
-                    <a href="/tags/Redis/" style="font-size: 1em; color: #d3d3d3">Redis
-                        <sup>1</sup>
-                    </a>
-                
-                    <a href="/tags/Backblaze/" style="font-size: 1em; color: #d3d3d3">Backblaze
-                        <sup>1</sup>
-                    </a>
-                
-                    <a href="/tags/CloudFlare/" style="font-size: 1em; color: #d3d3d3">CloudFlare
-                        <sup>1</sup>
-                    </a>
-                
-                    <a href="/tags/RabbitMQ/" style="font-size: 1em; color: #d3d3d3">RabbitMQ
-                        <sup>2</sup>
-                    </a>
-                
-                    <a href="/tags/%E9%97%AE%E5%8D%B7%E6%98%9F/" style="font-size: 1em; color: #d3d3d3">问卷星
-                        <sup>1</sup>
-                    </a>
-                
-                    <a href="/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/" style="font-size: 1em; color: #d3d3d3">油猴脚本
-                        <sup>1</sup>
-                    </a>
-                
-                    <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 1em; color: #d3d3d3">正则表达式
-                        <sup>1</sup>
-                    </a>
-                
-                    <a href="/tags/VSCODE/" style="font-size: 1em; color: #d3d3d3">VSCODE
-                        <sup>1</sup>
-                    </a>
-                
-                    <a href="/tags/%E4%BA%BA%E5%A4%A7%E9%87%91%E4%BB%93-postsql/" style="font-size: 1em; color: #d3d3d3">人大金仓,postsql
-                        <sup>1</sup>
-                    </a>
-                
-                    <a href="/tags/vue3/" style="font-size: 1em; color: #d3d3d3">vue3
-                        <sup>1</sup>
-                    </a>
-                
-            </div>
-        </div>
-    </div>
-</div>    
-        
-            <div class="post" id="body-wrap">
-                <header class="post-bg" id="page-header">
-    <nav id="nav" class="show">
-    <div id="nav-group">
-        <div id="blog_name">
-            
-                <div class="back-home-button" tabindex="-1">
-                    <i class="back-home-button-icon fas fa-grip-vertical"></i>
-                    <div class="back-menu-list-groups">
-    
-      
-      <div class="back-menu-list-group">
-        <div class="back-menu-list-title">
-          我的
-        </div>
-        <div class="back-menu-list">
-          
-            
-            <a class="back-menu-item" href="/" rel="external nofollow" title="博客">
-              <img class="back-menu-item-icon" src="/img/avatar.webp" loading="lazy">
-              <span class="back-menu-item-text">
-                博客
-              </span>
-            </a>
-          
-        </div>
-      </div>
-    
-  </div>
   
-                </div>
-            
-            <a id="site-name" href="/" title="返回博客主页">
-                    
-                        <span class="heoicon">万物天空</span>
-                    
-            </a>
-        </div>
-        <div id="page-name-mask">
-            <div id="page-name">
-                <a id="page-name-text" onclick="acrylic.toTop()">人大金仓创建postsql表并设置主键自增</a>
-            </div>
-        </div>
-        <div id="menus">
-            <div class="menus_items">
     
-        <div class="menus_item">
-            
-                <a class="site-page" href="javascript:void(0);" rel="external nofollow">
-                    <span> 文库</span>
-                </a>
-                <ul class="menus_item_child">
-                    
-                        <li>
-                            <a class="site-page child" href="/archives/">
-                                <i class="fas fa-box-archive"></i>
-                                <span> 文章列表</span>
-                            </a>
-                        </li>
-                    
-                        <li>
-                            <a class="site-page child" href="/categories/">
-                                <i class="fas fa-cube"></i>
-                                <span> 全部分类</span>
-                            </a>
-                        </li>
-                    
-                        <li>
-                            <a class="site-page child" href="/tags/">
-                                <i class="fas fa-tags"></i>
-                                <span> 全部标签</span>
-                            </a>
-                        </li>
-                    
-                </ul>
-             
-        </div>
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
     
-        <div class="menus_item">
-            
-                <a class="site-page" href="javascript:void(0);" rel="external nofollow">
-                    <span> 友链</span>
-                </a>
-                <ul class="menus_item_child">
-                    
-                        <li>
-                            <a class="site-page child" href="/links/">
-                                <i class="fas fa-user-group"></i>
-                                <span> 友情链接</span>
-                            </a>
-                        </li>
-                    
-                        <li>
-                            <a class="site-page child" href="/about/">
-                                <i class="fas fa-user-group"></i>
-                                <span> 关于本站</span>
-                            </a>
-                        </li>
-                    
-                </ul>
-             
-        </div>
+  
     
-</div>
-        </div>
-        <!-- <div id="nav-left">
-            <div id="fps-group">
-                <div id="fps">145</div><span class="fpsText">FPS</span>
-            </div>
-        </div> -->
-        <div id="nav-right">
-            
-    <div class="nav-button only-home" id="travellings_button">
-        <a class="site-page"  target="_blank" rel="noopener external nofollow" href="https://www.travellings.cn/go.html" title="开往-友链接力"  width="120">
-            <i class="fa-solid fa-train-subway" style="font-size: 1rem;"></i>
-        </a>
-    </div>
-
-
-    <div class="nav-button" id="randomPost_button">
-        <a class="site-page" onclick="toRandomPost()"
-            title="随机前往一个文章">
-            <i class="fas fa-shuffle" style="font-size: 1rem;"></i>
-        </a>
-    </div>
-
-
-    <div class="nav-button" id="search-button">
-        <a class="site-page social-icon search" title="站内搜索"
-            href="javascript:void(0);" rel="external nofollow">
-            <i class="fas fa-magnifying-glass" style="font-size: 1rem;"></i>
-        </a>
-    </div>
-
-
-    <div class="nav-button" id="nav-console">
-        <a class="console_switchbutton" onclick="acrylic.showConsole()"
-        title="显示中控台" href="javascript:void(0);" rel="external nofollow">
-        <i class="fas fa-bars-progress" style="font-size: 1rem;"></i>
-        </a>
-    </div>
-
-<div class="nav-button" id="nav-totop" onclick="acrylic.toTop()">
-    <a class="totopbtn">
-        <i class="fas fa-arrow-up"></i>
-        <span id="percent">0</span>
-    </a>
-</div>
-<div id="toggle-menu">
-    <a class="site-page">
-        <i class="fas fa-bars fa-fw" style="font-size: 1rem;"></i>
-    </a>
-</div>
-        </div>
-    </div>
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
 </nav>
-    
-        <div class="coverdiv" id="coverdiv">
-    <img id="post-cover" class="nolazyload" src="/img/hello.jpg" alt="cover">
 </div>
-<div id="post-info">
-    <div id="post-firstinfo">
-        <div class="meta-firstline">
-            <a class="post-meta-original" title="该文章为原创文章，注意版权协议">
-                原创
-            </a>
-            
-            <span class="post-meta-categories">
-                
-                    <a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-                
-            </span>
-            
-            <div class="tag_share">
-                <div class="post-meta__tag-list">
-                    
-                        <a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%A4%A7%E9%87%91%E4%BB%93-postsql/">
-                            <span class="tags-punctuation">#</span>
-                            <span class="tags-name">人大金仓,postsql</span>
-                        </a>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <h1 class="post-title">人大金仓创建postsql表并设置主键自增</h1>
-    <div id="post-meta">
-        <div class="meta-secondline">
-            <span class="post-meta-date" title="发布于">
-                <i class="post-meta-icon fa-fw fas fa-calendar"></i>
-                <time datetime="2023-07-11T10:48:00+08:00"></time>
-            </span>
-            
-                <span class="post-meta-date" title="更新于">
-                    <i class="post-meta-icon fa-solid fa-clock-rotate-left"></i>
-                    <time datetime="2023-07-21T09:24:20+08:00"></time>
-                </span>
-            
-            
-                <span class="post-meta-position" title="作者IP归属地为广东">
-                    <i class="fas fa-location-dot post-meta-icon"></i>
-                    <span>广东</span>
-                </span>
-            
-            
-                
-                    <span class="post-meta-wordcount">
-                        <i class="fas fa-file-word fa-fw post-meta-icon" title="文章字数"></i>
-                        <span class="word-count">278</span>
-                    </span>
-                
-                
-                    <span class="post-meta-time">
-                        <i class="fas fa-clock post-meta-icon" title="阅读耗时"></i>
-                        <span>1 min</span>
-                    </span>
-                
-            
-            
-                <span class="post-meta-pv" title="文章热度">
-                    <i class="fab fa-hotjar fa-fw post-meta-icon"></i>
-                    
-                        <span id="twikoo_visitors"><i class="fas fa-spinner fa-pulse"></i></span>
-                            
-                </span>
-            
-            
-                <span class="post-meta-commentcount" title="评论数">
-                    <i class="fa-solid fa-message"></i>
-                    <a href="#post-comment">
-                        <span id="twikoo-count"><i class="fas fa-spinner fa-pulse"></i></span>
-                    </a>
-                </span>
-                
-        </div>
-    </div>
-</div>
-<section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg"
-    xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-    <defs>
-        <path id="gentle-wave"
-            d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path>
-    </defs>
-    <g class="parallax">
-        <use href="#gentle-wave" x="48" y="0"></use>
-        <use href="#gentle-wave" x="48" y="3"></use>
-        <use href="#gentle-wave" x="48" y="5"></use>
-        <use href="#gentle-wave" x="48" y="7"></use>
-    </g>
-</svg>
-</section>
 
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">人大金仓创建Postgresql表并设置主键自增</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-07-11</span>
         
-</header>
-                <main class="layout" id="content-inner">
-    <div id="post">
-        <article class="post-content" id="article-container">
-            <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近实习了，公司产品用的人大金仓，底层数据库是postsql。<br>然后最近在建表，习惯了navicate，用这个一脸懵逼。<br>而且因为需要设置主键自增，在可视化操作那里无法单独添加，很奇怪，会疯狂报错。<br>我观察了其他大佬建的表，都是有一个nextval…啥的，谷歌了一波之后发现这是postsql的东西。<br>所以得手动写sql，别人推荐的是加一个关键字就可以了，但是我的一直不可以，所以这个教程先记录一下手动建立序列的方法。</p>
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E4%BA%BA%E5%A4%A7%E9%87%91%E4%BB%93-Postgresql/">
+              人大金仓,Postgresql
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近实习了，公司产品用的人大金仓，底层数据库是Postgresql。<br>然后最近在建表，习惯了navicate，用这个一脸懵逼。<br>而且因为需要设置主键自增，在可视化操作那里无法单独添加，很奇怪，会疯狂报错。<br>我观察了其他大佬建的表，都是有一个nextval…啥的，谷歌了一波之后发现这是Postgresql的东西。<br>所以得手动写sql，别人推荐的是加一个关键字就可以了，但是我的一直不可以，所以这个教程先记录一下手动建立序列的方法。</p>
 <h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><h4 id="第一步-创建序列"><a href="#第一步-创建序列" class="headerlink" title="第一步 创建序列"></a>第一步 创建序列</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE SEQUENCE 模式.table_name_id_seq; </span><br><span class="line"></span><br><span class="line">-- 查询</span><br><span class="line">select nextval(&#x27;模式.table_name_id_seq&#x27;::regclass);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h4 id="第二步-创建表"><a href="#第二步-创建表" class="headerlink" title="第二步 创建表"></a>第二步 创建表</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 模式.sys_oper_sql_log (</span><br><span class="line">    id BIGINT PRIMARY KEY DEFAULT nextval(&#x27;trs_cloud.sys_oper_sql_log_id_seq&#x27;::regclass),</span><br><span class="line">    sql_content TEXT ,</span><br><span class="line">    oper_id BIGINT </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><p>可以直接使用serial关键词来设定，默认id类型是integer，需要手动调整为bigint或者其他</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE trs_cloud.lm_book_place (</span><br><span class="line">    id serial PRIMARY KEY ,</span><br><span class="line">    book_location varchar(50)  ,</span><br><span class="line">    is_refuse_lend char default &#x27;0&#x27;::bpchar,</span><br><span class="line">    create_by varchar(60),</span><br><span class="line">    create_time timestamp without time zone,</span><br><span class="line">    update_by varchar(60),</span><br><span class="line">    update_time timestamp without time zone</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>人大金仓不像navicate一样，可视化插入，会提示报错，<br>可能原因是他要先select那个nextval，然后可视化插入会提前先自检不能为空<br>所以用insert into</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p><del>人大金仓不像Navicate一样，可视化插入，会提示报错，<br>可能原因是他要先select那个nextval，然后可视化插入会提前先自检不能为空<br>所以用insert into</del></p>
+<p>实测可以用Navicate连接，操作虽然跟Mysql的不同，但是至少比人大金仓好太多，人大总是有奇奇怪怪的bug。</p>
 <h3 id="借鉴"><a href="#借鉴" class="headerlink" title="借鉴"></a>借鉴</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/aaaaaaa1516682014292/article/details/128130697">https://blog.csdn.net/aaaaaaa1516682014292/article/details/128130697</a></li>
 </ul>
 
-        </article>
-        <div class="post-tools" id="post-tools">
-            <div class="post-tools-left">
-                
-                <div class="share-link mobile">
-    <div class="share-qrcode">
-        <div class="share-button" title="使用手机访问这篇文章">
-            <i class="fas fa-qrcode"></i>
         </div>
-        <div class="share-main">
-            <div class="share-main-all">
-                <div id="qrcode" title="https://www.loveasd.com/p/d60be7ec.html">
-                </div>
-                <div class="reward-dec">使用手机访问这篇文章</div>
-            </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="top-box-text">写在前面</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%95%99%E7%A8%8B"><span class="top-box-text">教程</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C"><span class="top-box-text">方式二</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%B3%A8%E6%84%8F"><span class="top-box-text">注意</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%80%9F%E9%89%B4"><span class="top-box-text">借鉴</span></a></li></ol></li></ol>
         </div>
-        <script type="text/javascript">
-            new QRCode(document.getElementById("qrcode"), "https://www.loveasd.com/p/d60be7ec.html");
-        </script>
+          
+      </div>
     </div>
-</div>
-                <div class="share-link weibo"><a class="share-button" target="_blank"
-    href="https://service.weibo.com/share/share.php?title=人大金仓创建postsql表并设置主键自增&amp;url=https://www.loveasd.com/p/d60be7ec.html&amp;pic=/img/hello.jpg"
-    title="分享到微博" rel="noopener external nofollow noreferrer noopener">
-    <i class="fab fa-weibo" style="font-size:22px"></i>
-</a>
-</div>
-<div class="share-link copyurl">
-<div class="share-button" id="post-share-url" title="复制链接" onclick="acrylic.copyPageUrl()">
-    <i class="fas fa-link"></i>
-</div>
-</div>
-            </div>
-            <div class="post-tools-right">
-                <div class="tag_share">
-                    <div class="post-meta__tag-list">
-                        
-                            <a href="/tags/%E4%BA%BA%E5%A4%A7%E9%87%91%E4%BB%93-postsql/" class="post-meta__tags">
-                                <span class="tags-punctuation">#</span>
-                                人大金仓,postsql
-                                <span class="tagsPageCount">1</span>
-                            </a>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="post-copyright">
-    <div class="post-copyright__author">
-        <a class="post-copyright__original" title="该文章为原创文章，注意版权协议">原创</a>
-        <a class="post-copyright-title" href="#">
-            <span>人大金仓创建postsql表并设置主键自增</span>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/p/5623b276.html">
+          <h3 class="post-title">
+            下一篇：利用正则表达式在Vscode上去除空行、注释
+          </h3>
         </a>
-    </div>
-    <div class="post-copyright__type">
-        <span class="post-copyright-info" id="post-copyright-url">
-            <a href="/p/d60be7ec.html">https://www.loveasd.com/p/d60be7ec.html</a>
-        </span>
-        <button class="post-copyright-copybtn" onclick="acrylic.copyPageUrl()">
-            <i class="fas fa-paste copy-btn"></i>
-        </button>
-    </div>
-    <div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用 <a
-                href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> 协议，完整转载请注明来自 <a
-                href="/">万物天空</a>
-            </span>
-        </div>
-</div>
-        <nav class="pagination-post" id="pagination">
+      </div>
     
-        <div class="prev-post pull-left">
-            <a href="/p/cee62a0f.html">
-                <div class="pagination-info">
-                    <div class="label">上一篇</div>
-                    <div class="prev_info">vue3的el-form表单输入响应式失效问题（input、单选都无法操作）</div>
-                </div>
-            </a>
-        </div>
-        <div class="next-post pull-right">
-            <a href="/p/5623b276.html">
-                <div class="pagination-info">
-                    <div class="label">下一篇</div>
-                    <div class="next_info">利用正则表达式在Vscode上去除空行、注释</div>
-                </div>
-            </a>
-        </div>
-    
-</nav>
-        
-            <div id="post-comment">
-    <div class="comment-head">
-        <div class="comment-headline">
-            <i class="fas fa-message fa-fw"></i>
-            <span> 评论</span>
-        </div>
-    </div>
-    <div class="comment-wrap">
-        <div id="comment"></div>
-        <script>
-    async function initComment(){
-        var initOptions = Object.assign(
-            {"envId":"https://wwtk-twikoo.vercel.app/","path":"window.location.pathname"},
-            {
-                el: '#comment',
-                onCommentLoaded: function() {
-                    GLOBALCONFIG.lightbox && acrylic.lightbox('#article-container img, #twikoo .tk-content img:not(.tk-owo-emotion)') 
-                }
-            }
-        )
-        await twikoo.init(initOptions)
-        
-            var countOptions = Object.assign(
-                {"envId":"https://wwtk-twikoo.vercel.app/","path":"window.location.pathname"},
-                { 
-                    urls: [window.location.pathname],
-                    includeReply: false
-                }
-            )
-            const res = await twikoo.getCommentsCount(countOptions)
-            try{
-                document.getElementById('twikoo-count').innerText = res[0].count
-            }catch (e) {
-                document.getElementById('twikoo-count').innerText = '加载错误'
-            }
-             
-    }
+  </div>
+
+
+    <div id="gitalk-container"></div>
+
+
+
+
+
+
+<script>
+    (function () {
+        const jq = document.createElement('script');
+        jq.src = "/js/twikoo.min.js";
+        document.getElementsByTagName('body')[0].appendChild(jq);
+
+        const config = {"envId":"https://wwtk-twikoo-o74lzzq47-zixingyx-gmailcom.vercel.app","region":null,"mark":null};
+        jq.onload = function () {
+            twikoo.init({
+                envId: config.envId,
+                el: '#gitalk-container',
+                region: config.region,
+                path: location.pathname + (config.mark ? '?mark=' + config.mark : ''),
+                lang: config.language,
+            });
+        }
+    })()
 </script>
-    </div>
-</div>
-            
-    </div>
-    <div class="aside-content" id="aside-content">
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
     
-    
-        
-        <div class="card-widget card-info">
-    <div class="card-content">
-        <div class="card-info-avatar is-center">
-            <div class="author-info__sayhi" id="author-info__sayhi">
-            </div>
-            <img class="avatar-img entered loaded" data-lazy-src="/img/acrylic.png" onerror="this.onerror=null;this.src='/img/acrylic.png'" alt="avatar" data-ll-status="loaded" src="">
-            <div class="author-info__name">
-                啊乐
-            </div>
-            <div class="author-info__description">这有分享<b>技术</b>、<b>生活</b>。<br>相信你可以在这里找到对你有用的知识和教程。</div>
-        </div>
-    </div>
-    <div class="banner-button-group">
-        <a class="banner-button" href="/">
-            <i class="fas fa-circle-chevron-right"></i>
-            <span class="banner-button-text">个人主页</span>
+      
+        <a aria-label="跳转至github" href="https://github.com/paopao233" target="_blank">
+          <i class="icon icon-github"></i>
         </a>
-    </div>
-    <div class="card-info-social-icons is-center">
-        
-            <a class="social-icon" target="_blank" rel="noopener" href="https://github.com/paopao233" title="Github">
-                <i class="fa-brands fa-github"></i>
-            </a>
-        
-            <a class="social-icon" href="mailto:1319082534@qq.com" title="Mail">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
-        
-    </div>
-</div>
-     
+      
     
-    <div class="sticky_layout">
-        
-            <div class="card-widget" id="card-toc">
-    <div class="item-headline">
-        <i class="fas fa-bars"></i>
-        <span>文章目录</span>
-    </div>
-    <div class="toc-content" id="toc-content">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%99%E7%A8%8B"><span class="toc-text">教程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5-%E5%88%9B%E5%BB%BA%E5%BA%8F%E5%88%97"><span class="toc-text">第一步 创建序列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="toc-text">第二步 创建表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-text">注意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%9F%E9%89%B4"><span class="toc-text">借鉴</span></a></li></ol></li></ol>
-    </div>
-</div>
-            
-        
-            
-        <div class="card-widget card-recent-post">
-    <div class="item-headline">
-        <i class="fas fa-list-ol"></i>
-        <span>最近发布</span>
-    </div>
-    <div class="aside-list">
-        
-        
-            <div class="aside-list-item">
-                <a class="thumbnail" href="/p/cee62a0f.html" title="vue3的el-form表单输入响应式失效问题（input、单选都无法操作）">
-                    <img
-                        alt="vue3的el-form表单输入响应式失效问题（input、单选都无法操作）"
-                        src="/img/hello.jpg">
-                </a>
-                <div class="content">
-                    
-                        <a class="article-recent_post_categories" href="/p/cee62a0f.html">
-                            学习笔记
-                        </a>
-                    
-                    <a class="title" href="/p/cee62a0f.html" title="vue3的el-form表单输入响应式失效问题（input、单选都无法操作）">
-                        vue3的el-form表单输入响应式失效问题（input、单选都无法操作）
-                    </a>
-                </div>
-            </div>
-                
-        
-            <div class="aside-list-item">
-                <a class="thumbnail" href="/p/d60be7ec.html" title="人大金仓创建postsql表并设置主键自增">
-                    <img
-                        alt="人大金仓创建postsql表并设置主键自增"
-                        src="/img/hello.jpg">
-                </a>
-                <div class="content">
-                    
-                        <a class="article-recent_post_categories" href="/p/d60be7ec.html">
-                            学习笔记
-                        </a>
-                    
-                    <a class="title" href="/p/d60be7ec.html" title="人大金仓创建postsql表并设置主键自增">
-                        人大金仓创建postsql表并设置主键自增
-                    </a>
-                </div>
-            </div>
-                
-        
-            <div class="aside-list-item">
-                <a class="thumbnail" href="/p/5623b276.html" title="利用正则表达式在Vscode上去除空行、注释">
-                    <img
-                        alt="利用正则表达式在Vscode上去除空行、注释"
-                        src="/img/hello.jpg">
-                </a>
-                <div class="content">
-                    
-                        <a class="article-recent_post_categories" href="/p/5623b276.html">
-                            学习笔记
-                        </a>
-                    
-                    <a class="title" href="/p/5623b276.html" title="利用正则表达式在Vscode上去除空行、注释">
-                        利用正则表达式在Vscode上去除空行、注释
-                    </a>
-                </div>
-            </div>
-                
-        
-            <div class="aside-list-item">
-                <a class="thumbnail" href="/p/16a9afcf.html" title="RabbitMQ入门学习">
-                    <img
-                        alt="RabbitMQ入门学习"
-                        src="/img/hello.jpg">
-                </a>
-                <div class="content">
-                    
-                        <a class="article-recent_post_categories" href="/p/16a9afcf.html">
-                            学习笔记
-                        </a>
-                    
-                    <a class="title" href="/p/16a9afcf.html" title="RabbitMQ入门学习">
-                        RabbitMQ入门学习
-                    </a>
-                </div>
-            </div>
-                
-        
-            <div class="aside-list-item">
-                <a class="thumbnail" href="/p/9a4d61d1.html" title="用油猴脚本来自动填写问卷星的调查问卷，分分钟100+">
-                    <img
-                        alt="用油猴脚本来自动填写问卷星的调查问卷，分分钟100+"
-                        src="https://oss.loveasd.com/loveasd-oss/2023/05/13e4724a2eebbcadb8cd3e6e3d792e4f.png">
-                </a>
-                <div class="content">
-                    
-                        <a class="article-recent_post_categories" href="/p/9a4d61d1.html">
-                            科技人生
-                        </a>
-                    
-                    <a class="title" href="/p/9a4d61d1.html" title="用油猴脚本来自动填写问卷星的调查问卷，分分钟100+">
-                        用油猴脚本来自动填写问卷星的调查问卷，分分钟100+
-                    </a>
-                </div>
-            </div>
-            
-    </div>
-</div>
-     
-        
-    </div>
-</div> 
-</main>
-                <footer id="footer">
-                    <div id="footer_deal">
+      
     
-        <a class="deal_link" target="_blank" href="https://github.com/paopao233" rel="external nofollow noopener" title="Github">
-            <i class="fa-brands fa-github"></i>
-        </a>
+      
     
-        <a class="deal_link" href="mailto:1319082534@qq.com" rel="external nofollow" title="Mail">
-            <i class="fa-solid fa-envelope"></i>
-        </a>
+      
     
-    <img class="footer_mini_logo" src="/img/avatar.webp"
-        title="返回顶部" onclick="acrylic.toTop()">
+      
     
-        <a class="deal_link" target="_blank" href="https://music.163.com/#/user/home?id=63076751" rel="external nofollow noopener" title="网易云">
-            <i class="fa-solid fa-music"></i>
-        </a>
-    
-        <a class="deal_link" target="_blank" href="https://space.bilibili.com/9037258?spm_id_from=333.1007.0.0" rel="external nofollow noopener" title="bilibili">
-            <i class="fa-brands fa-bilibili"></i>
-        </a>
-    
-</div>    
-<div id="heo-footer">
-    
-        <div class="footer-group">
-            <h3 class="footer-title">导航</h3>
-            <div class="footer-links">
-                
-                    <a class="footer-item" href="/archives/" title="文章归档" rel="noopener external nofollow noreferrer">文章归档</a>
-                
-                    <a class="footer-item" href="/categories/" title="文章分类" rel="noopener external nofollow noreferrer">文章分类</a>
-                
-                    <a class="footer-item" href="/tags/" title="文章标签" rel="noopener external nofollow noreferrer">文章标签</a>
-                
-                    <a class="footer-item" href="/links/" title="友链链接" rel="noopener external nofollow noreferrer">友链链接</a>
-                    
-            </div>
-        </div>
-    
-        <div class="footer-group">
-            <h3 class="footer-title">服务</h3>
-            <div class="footer-links">
-                
-                    <a class="footer-item" target="_blank" href="https://51.la/" title="51la统计" rel="noopener external nofollow noreferrer noopener">51la统计</a>
-                
-                    <a class="footer-item" target="_blank" href="https://tongji.baidu.com/" title="百度统计" rel="noopener external nofollow noreferrer noopener">百度统计</a>
-                
-                    <a class="footer-item" target="_blank" href="https://ql.tianli0.top/" title="TianliCDN" rel="noopener external nofollow noreferrer noopener">TianliCDN</a>
-                    
-            </div>
-        </div>
-    
-        <div class="footer-group">
-            <h3 class="footer-title">Acrylic</h3>
-            <div class="footer-links">
-                
-                    <a class="footer-item" target="_blank" href="https://acrylic.zhheo.com/" title="主题官网" rel="noopener external nofollow noreferrer noopener">主题官网</a>
-                
-                    <a class="footer-item" target="_blank" href="https://github.com/hexo-theme-Acrylic/Hexo-Theme-Acrylic" title="Github" rel="noopener external nofollow noreferrer noopener">Github</a>
-                
-                    <a class="footer-item" target="_blank" href="https://blog.zhheo.com/" title="Heo" rel="noopener external nofollow noreferrer noopener">Heo</a>
-                    
-            </div>
-        </div>
-    
-        <div class="footer-group">
-            <h3 class="footer-title">推荐友链</h3>
-            <div class="footer-links">
-                
-                    <a class="footer-item" target="_blank" href="https://blog.zhheo.com/" title="Heo" rel="noopener external nofollow noreferrer noopener">Heo</a>
-                
-                    <a class="footer-item" target="_blank" href="https://akilar.top" title="Akilar" rel="noopener external nofollow noreferrer noopener">Akilar</a>
-                    
-            </div>
-        </div>
-    
-    
-</div>
-<div id="footer-section">
-    <div class="footer-section-links">
-        <div class="footer-section-left">
-            <div id="footer-section-tips">
-                <div class="copyright">©2021 - 2023 By 
-                    <a class="footer-section-link" href="/" rel="external nofollow">啊乐</a>
-                    <a class="footer-section-link" href="https://github.com/hexo-theme-Acrylic/Hexo-Theme-Acrylic-Next" rel="external nofollow" target="_blank"> Theme By Acrylic-Next</a>
-                    <a class="footer-section-link" href="" rel="external nofollow" target="_blank"></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-section-right">
-            <a class="footer-section-link" href="">订阅</a>
-            
-            <a class="footer-section-link cc" target="_blank" href="https://creativecommons.org/licenses/by/4.0/" title="cc协议">
-                <i class="fas fa-closed-captioning"></i>
-            </a>
-        </div>
-    </div>
-</div>
-                </footer>
-            </div>
-         
-        <div>
-    <script type="text/javascript" src="/js/utils.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
-    
-
-<script src="/lib/pjax.min.js"></script>
-
-
-
-<script src="/lib/snackbar.min.js"></script>
-
-
-    
-<script src="/lib/view-image.min.js"></script>
-
-
-
-    
-<link rel="stylesheet" href="/lib/swiper.min.css">
-
-    
-<script src="/lib/swiper.min.js"></script>
-
-
-<div id="js-pjax">
-    
-    
-        <script async src="https://npm.elemecdn.com/penndu@1.0.0/bsz.js"></script>
-     
-</div>
-
-
-    
-<script src="/js/extend/covercolor/web.js"></script>
-
-        
-
-
-    
-<script src="/js/extend/console/comment.js"></script>
-
-
-
-    <script>
-  let pjaxSelectors = [
-    'title',
-    '#body-wrap',
-    '#site-config',
-    'meta[name="description"]',
-    '#js-pjax'
-  ]
+  </div>
   
-  const pjax = new Pjax({
-    elements: 'a:not([target="_blank"])',
-    selectors: pjaxSelectors,
-    cacheBust: false,
-    analytics: false,
-    scrollRestoration: false
-  })
-
-  document.querySelectorAll('script[data-pjax]').forEach(item => {
-      const newScript = document.createElement('script')
-      const content = item.text || item.textContent || item.innerHTML || ""
-      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-      newScript.appendChild(document.createTextNode(content))
-      item.parentNode.replaceChild(newScript, item)
-  })
-
-  document.addEventListener('pjax:error', (e) => {
-    if (e.request.status === 404) {
-      pjax.loadUrl('/404.html')
-    }
-  })
-</script>
-    
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
 </div>
-        
+</footer>
 
-    <div id="algolia-search">
-    <div class="search-dialog">
-        <nav class="search-nav">
-            <span class="search-dialog-title">搜索</span>
-            <button class="search-close-button">
-                <i class="fas fa-times"></i>
-            </button>
-        </nav>
-        <div class="search-wrap">
-            <div class="search-box" id="search-input"></div>
-            <div id="search-results">
-                <div id="algolia-hits">
-                </div>
-                <div class="algolia-stats"></div>
-                <div class="algolia-poweredBy"></div>
-            </div>
-        </div>
+
+      </div>
     </div>
-    <div id="search-mask"></div>
-</div>
     
-<link rel="stylesheet" href="/css/search/algolia-search.css">
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
 
-    
-<script src="/js/extend/search/algolia-search.js"></script>
+<script src="/js/main.js"></script>
 
-     
-        <div class="needEndHide" id="nav-music" onclick="acrylic.musicToggle()">
-    <div id="nav-music-hoverTips">音乐已暂停</div>
-    <meting-js id="1708664797" server="tencent" type="playlist" mutex="true"
-        preload="none" data-lrctype="0" order="random" theme="var(--heo-main)"></meting-js>
-</div>
-    
-    </body>
+
+
+
+
+
+  </body>
 </html>
-<script>const posts=["p/cee62a0f.html","p/d60be7ec.html","p/5623b276.html","p/16a9afcf.html","p/9a4d61d1.html","p/352b77f0.html","p/c5eeaec6.html","p/40faba9d.html","p/d87f7e0c.html","p/4a17b156.html"];function toRandomPost(){ window.pjax ? pjax.loadUrl('/'+posts[Math.floor(Math.random()*posts.length)]) : window.open('/'+posts[Math.floor(Math.random()*posts.length)], "_self"); };</script>
+

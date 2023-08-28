@@ -9,13 +9,13 @@
 
 <meta charset="utf-8" >
 
-<title>万物天空</title>
-<meta name="keywords" content="万物天空, 万物天空">
+<title>关于</title>
+<meta name="keywords" content="关于, 万物天空">
 <meta name="description" content="万物天空">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:title" content="万物天空">
+<meta property="og:title" content="关于">
 <meta property="og:description" content="万物天空">
 
 <link rel="shortcut icon" href="/favicon.ico">
@@ -74,57 +74,58 @@
 
 
 
-<div class="content-container">
-
-  <div class="current-tag-container">
-    <h2 class="title">
-      <i class="icon icon-pricetags-outline"></i> Docker
-    </h2>
-  </div>
-
-  
-
-<section class="post-item">
-    <div class="content">
-      <a href="/p/c5eeaec6.html">
-        <h2 class="post-title">记录一次线上服务事故</h2>
-      </a>
-      <a href="/p/c5eeaec6.html">
-          <div class="post-abstract">
-            
-			    前言最近两天某个项目的认定模块总是出现问题，好几个老师群里反馈，后面小组成员排查了一下发现是Redis key过期回调没有触发。
-先说一下我们这个服务的逻辑，当某个活动被启用时，会自动创建一个缓存，ttl为现在时间距离活动开始时间的长度，然
-            
-          </div>
-      </a>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2023-05-12</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-
-                Docker
-                
-                  ，
-                
-            
-
-                Redis
-                
-            
-          </span>
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">关于</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-05-11</span>
         
       </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          
+        </div>
+          
+        <div class="top-div">
+          
+        </div>
+          
+      </div>
     </div>
-  </section>
+
+    
+  </div>
+
+
+    <div id="gitalk-container"></div>
 
 
 
 
 
 
-</div>
+<script>
+    (function () {
+        const jq = document.createElement('script');
+        jq.src = "/js/twikoo.min.js";
+        document.getElementsByTagName('body')[0].appendChild(jq);
+
+        const config = {"envId":"https://wwtk-twikoo-o74lzzq47-zixingyx-gmailcom.vercel.app","region":null,"mark":null};
+        jq.onload = function () {
+            twikoo.init({
+                envId: config.envId,
+                el: '#gitalk-container',
+                region: config.region,
+                path: location.pathname + (config.mark ? '?mark=' + config.mark : ''),
+                lang: config.language,
+            });
+        }
+    })()
+</script>
+
+
+
 
 <footer>
 <div class="site-footer">
@@ -171,5 +172,4 @@
 
   </body>
 </html>
-
 
