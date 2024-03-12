@@ -6,7 +6,7 @@
   <link href="https://www.loveasd.com/atom.xml" rel="self"/>
   
   <link href="https://www.loveasd.com/"/>
-  <updated>2023-07-21T01:24:20.786Z</updated>
+  <updated>2024-03-12T06:16:37.312Z</updated>
   <id>https://www.loveasd.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>部门表要怎么设计才好</title>
+    <link href="https://www.loveasd.com/p/4c646377.html"/>
+    <id>https://www.loveasd.com/p/4c646377.html</id>
+    <published>2024-03-12T06:00:00.000Z</published>
+    <updated>2024-03-12T06:16:37.312Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>昨天面试遇到的一个问题，要构建一个部门表，基础字段有部门名、部门id。</p><p>问，怎么设计这个部门？如果要你写一条SQL，根据部门ID查询出直接子部门和非直接子部门，那要怎么设计？多少个表？</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>表结构设计</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable constant_">CREATE</span> <span class="variable constant_">TABLE</span> dept (</span><br><span class="line">    dept_id <span class="variable constant_">INT</span> <span class="variable constant_">AUTO_INCREMENT</span> <span class="variable constant_">PRIMARY</span> <span class="variable constant_">KEY</span>,</span><br><span class="line">    dept_name <span class="title function_">VARCHAR</span>(<span class="number">50</span>) <span class="variable constant_">NOT</span> <span class="variable constant_">NULL</span>,</span><br><span class="line">    parent_id <span class="variable constant_">INT</span>,</span><br><span class="line">    ancestors <span class="title function_">VARCHAR</span>(<span class="number">255</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure><p>解释，ancestors 存放的是祖宗的主键值，主要是用来存放本部门的祖宗的。</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">假设部门的关系如下：</span><br><span class="line"></span><br><span class="line">- A部门: <span class="variable constant_">ID</span>=<span class="number">1</span></span><br><span class="line">- B部门: <span class="variable constant_">ID</span>=<span class="number">2</span>（父部门是A）</span><br><span class="line">- C部门: <span class="variable constant_">ID</span>=<span class="number">3</span>（父部门是B）</span><br><span class="line"></span><br><span class="line">在这种情况下，部门的<span class="string">`ancestors`</span>字段会设置为：</span><br><span class="line"></span><br><span class="line">- A部门的<span class="string">`ancestors`</span>为空，因为它是顶级部门。</span><br><span class="line">- B部门的<span class="string">`ancestors`</span>为<span class="string">`1`</span>，表示A是B的直接上级。</span><br><span class="line">- C部门的<span class="string">`ancestors`</span>为<span class="string">`1,2`</span>，表示A是C的顶级上级，B是C的直接上级。</span><br></pre></td></tr></table></figure><p>这样子做的好处是，查询直接子部门和非直接子部门只需要遍历这个ancestors 即可，无需借助其他的。如果没有<code>ancestors</code>的帮助，我们需要在代码中通过parent_id逐层逐级的遍历列举以及合并列表。查询的sql也只需要这样子。</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> dept</span><br><span class="line"><span class="variable constant_">WHERE</span> dept_id <span class="variable constant_">IN</span> ( <span class="variable constant_">SELECT</span> dept_id <span class="variable constant_">FROM</span> dept <span class="variable constant_">WHERE</span> <span class="title function_">find_in_set</span>(<span class="string">&#x27;查询的ID&#x27;</span>, ancestors ) )</span><br><span class="line"></span><br><span class="line"># <span class="title function_">FIND_IN_SET</span>(<span class="string">&#x27;2&#x27;</span>, ancestors) 就是在 ancestors 字段中查找是否存在 <span class="string">&#x27;2&#x27;</span>，</span><br><span class="line"># 如果存在，返回其位置（非零值）。</span><br></pre></td></tr></table></figure><p>![Untitled](<a href="https://file.notion.so/f/f/ed73c4e1-cd30-4eed-b1ac-cba3a30006f0/4fa3f085-7b66-4429-b6fc-73d902dddcf3/Untitled.png?id=9e774a3e-95a0-4ea3-a254-700d07ad6beb&table=block&spaceId=ed73c4e1-cd30-4eed-b1ac-cba3a30006f0&expirationTimestamp=1710374400000&signature=JfDnCa6Zh5TFShlxIImaS9rCC4Ia_2YRnUXtAK065z0&downloadName=Untitled.png">Untitled.png (486×292) (notion.so)</a></p><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>每次维护表的时候，都要专门去维护ancestors 这个节点，会加大维护成本</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;需求&quot;&gt;&lt;a href=&quot;#需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求&lt;/h2&gt;&lt;p&gt;昨天面试遇到的一个问题，要构建一个部门表，基础字段有部门名、部门id。&lt;/p&gt;
+&lt;p&gt;问，怎么设计这个部门？如果要你写一条SQL，根据部门I</summary>
+      
+    
+    
+    
+    <category term="开发日志" scheme="https://www.loveasd.com/categories/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="部门表" scheme="https://www.loveasd.com/tags/%E9%83%A8%E9%97%A8%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>vue3的el-form表单输入响应式失效问题（input、单选都无法操作）</title>
