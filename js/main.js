@@ -1,191 +1,139 @@
-/* global window, document */
-'use strict';
-
-// 菜单
-document.querySelector('.menu-switch').addEventListener('click', function() {
-  const menuContainer = document.querySelector('.menu-container');
-
-  if (this.classList.contains('icon-menu-outline')) {
-    this.classList.replace('icon-menu-outline', 'icon-close-outline');
-    menuContainer.style.opacity = '1';
-    menuContainer.style.height = 'auto';
-    menuContainer.style['z-index'] = '1024';
-  } else {
-    this.classList.replace('icon-close-outline', 'icon-menu-outline');
-    menuContainer.style.opacity = '0';
-    menuContainer.style['z-index'] = '0';
-
-    setTimeout(() => {
-      if (this.classList.contains('icon-menu-outline')) {
-        menuContainer.style.height = '0';
-      }
-    }, 600);
-  }
-});
-
-// 代码复制
-function addCopyIcons() {
-  const copyIcon = document.createElement('i');
-  copyIcon.className = 'fa-solid icon icon-copy copy-code';
-  copyIcon.title = '复制代码';
-
-  document.querySelectorAll('.post-detail figure').forEach(figure => {
-    figure.appendChild(copyIcon.cloneNode(true));
-  });
-
-  document.querySelectorAll('.post-detail pre[class*=language-].line-numbers').forEach(codeBlock => {
-    codeBlock.appendChild(copyIcon.cloneNode(true));
-  });
-
-  document.querySelectorAll('.post-detail .copy-code').forEach(copyCodeBtn => {
-    copyCodeBtn.addEventListener('click', function() {
-      const selection = window.getSelection();
-      const range = document.createRange();
-      const table = this.previousElementSibling.tagName === 'TABLE' ? this.previousElementSibling : null;
-      const preElement = table ? table.querySelector('.code pre') : this.previousElementSibling;
-
-      range.selectNodeContents(preElement);
-      selection.removeAllRanges();
-      selection.addRange(range);
-      selection.toString();
-      document.execCommand('copy');
-      selection.removeAllRanges();
-
-      this.innerHTML = '<span class="copy-success"> 复制成功</span>';
-      const that = this;
-      setTimeout(() => {
-        that.innerHTML = '';
-      }, 2500);
+/* eslint-disable node/no-unsupported-features/node-builtins */
+(function($, moment, ClipboardJS, config) {
+    $('.article img:not(".not-gallery-item")').each(function() {
+        // wrap images with link and add caption if possible
+        if ($(this).parent('a').length === 0) {
+            $(this).wrap('<a class="gallery-item" href="' + $(this).attr('src') + '"></a>');
+            if (this.alt) {
+                $(this).after('<p class="has-text-centered is-size-6 caption">' + this.alt + '</p>');
+            }
+        }
     });
-  });
-}
 
-// 代码语言
-function setLanguageAttributes() {
-  const setLanguageAttribute = (element, attributeName) => {
-    const codeLanguage = element.getAttribute('class');
-    if (codeLanguage) {
-      const langName = codeLanguage.replace(attributeName, '').trim().replace('language-', '').trim();
-      element.setAttribute('data-content-after', langName || 'CODE');
+    if (typeof $.fn.lightGallery === 'function') {
+        $('.article').lightGallery({ selector: '.gallery-item' });
     }
-  };
-
-  document.querySelectorAll('code').forEach(codeBlock => {
-    setLanguageAttribute(codeBlock, 'line-numbers');
-  });
-
-  document.querySelectorAll('.highlight').forEach(highlightBlock => {
-    setLanguageAttribute(highlightBlock, 'highlight');
-  });
-}
-
-// 文章详情侧边目录
-function handleScroll() {
-  const mainNavLinks = document.querySelectorAll('.top-box a');
-  const fromTop = window.scrollY + 100;
-
-  mainNavLinks.forEach((link, index) => {
-    const section = document.getElementById(decodeURI(link.hash).substring(1));
-    let nextSection = null;
-    if (mainNavLinks[index + 1]) {
-      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    if (typeof $.fn.justifiedGallery === 'function') {
+        if ($('.justified-gallery > p > .gallery-item').length) {
+            $('.justified-gallery > p > .gallery-item').unwrap();
+        }
+        $('.justified-gallery').justifiedGallery();
     }
 
-    if (section.offsetTop <= fromTop && (!nextSection || nextSection.offsetTop > fromTop)) {
-      link.classList.add('current');
-    } else {
-      link.classList.remove('current');
+    if (typeof moment === 'function') {
+        $('.article-meta time').each(function() {
+            $(this).text(moment($(this).attr('datetime')).fromNow());
+        });
     }
-  });
-}
 
-function bindScrollEvent() {
-  window.addEventListener('scroll', () => {
-    handleScroll();
-  });
-}
-
-// 点击锚点滚动条偏移
-function bindClickEvent() {
-  const topBoxLinks = document.querySelectorAll('.top-box-link');
-  topBoxLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      setTimeout(() => {
-        window.scrollTo(window.pageXOffset, window.pageYOffset - 54);
-        console.log(window.pageYOffset - 54, '滚动条位置');
-      }, 0);
+    $('.article > .content > table').each(function() {
+        if ($(this).width() > $(this).parent().width()) {
+            $(this).wrap('<div class="table-overflow"></div>');
+        }
     });
-  });
-}
 
-function lazyload(imgs, data) {
-  data.now = Date.now();
-  data.needLoad = Array.from(imgs).some(i => i.hasAttribute('lazyload'));
-
-  const h = window.innerHeight;
-  const s = document.documentElement.scrollTop || document.body.scrollTop;
-
-  imgs.forEach(img => {
-    if (img.hasAttribute('lazyload') && !img.hasAttribute('loading')) {
-
-      if ((h + s) > img.offsetTop) {
-        img.setAttribute('loading', true);
-        const loadImageTimeout = setTimeout(() => {
-          // eslint-disable-next-line no-undef
-          const temp = new Image();
-          const src = img.getAttribute('data-src');
-          temp.src = src;
-          temp.onload = () => {
-            img.src = src;
-            img.removeAttribute('lazyload');
-            img.removeAttribute('loading');
-            clearTimeout(loadImageTimeout);
-          };
-        }, 300);
-      }
+    function adjustNavbar() {
+        const navbarWidth = $('.navbar-main .navbar-start').outerWidth() + $('.navbar-main .navbar-end').outerWidth();
+        if ($(document).outerWidth() < navbarWidth) {
+            $('.navbar-main .navbar-menu').addClass('justify-content-start');
+        } else {
+            $('.navbar-main .navbar-menu').removeClass('justify-content-start');
+        }
     }
-  });
-}
+    adjustNavbar();
+    $(window).resize(adjustNavbar);
 
-// 图片懒加载
-function lazyloadLoad() {
-  if (window.theme_config.image && window.theme_config.image.lazyload_enable) {
-    const imgs = document.querySelectorAll('img');
+    function toggleFold(codeBlock, isFolded) {
+        const $toggle = $(codeBlock).find('.fold i');
+        !isFolded ? $(codeBlock).removeClass('folded') : $(codeBlock).addClass('folded');
+        !isFolded ? $toggle.removeClass('fa-angle-right') : $toggle.removeClass('fa-angle-down');
+        !isFolded ? $toggle.addClass('fa-angle-down') : $toggle.addClass('fa-angle-right');
+    }
 
-    const data = {
-      now: Date.now(),
-      needLoad: true
-    };
+    function createFoldButton(fold) {
+        return '<span class="fold">' + (fold === 'unfolded' ? '<i class="fas fa-angle-down"></i>' : '<i class="fas fa-angle-right"></i>') + '</span>';
+    }
+
+    $('figure.highlight table').wrap('<div class="highlight-body">');
+    if (typeof config !== 'undefined'
+        && typeof config.article !== 'undefined'
+        && typeof config.article.highlight !== 'undefined') {
+
+        $('figure.highlight').addClass('hljs');
+        $('figure.highlight .code .line span').each(function() {
+            const classes = $(this).attr('class').split(/\s+/);
+            for (const cls of classes) {
+                $(this).addClass('hljs-' + cls);
+                $(this).removeClass(cls);
+            }
+        });
 
 
-    lazyload(imgs, data);
+        const clipboard = config.article.highlight.clipboard;
+        const fold = config.article.highlight.fold.trim();
 
-    window.onscroll = () => {
-      if (Date.now() - data.now > 50 && data.needLoad) {
-        lazyload(imgs, data);
-      }
-    };
-  }
-}
+        $('figure.highlight').each(function() {
+            if ($(this).find('figcaption').length) {
+                $(this).find('figcaption').addClass('level is-mobile');
+                $(this).find('figcaption').append('<div class="level-left">');
+                $(this).find('figcaption').append('<div class="level-right">');
+                $(this).find('figcaption div.level-left').append($(this).find('figcaption').find('span'));
+                $(this).find('figcaption div.level-right').append($(this).find('figcaption').find('a'));
+            } else {
+                if (clipboard || fold) {
+                    $(this).prepend('<figcaption class="level is-mobile"><div class="level-left"></div><div class="level-right"></div></figcaption>');
+                }
+            }
+        });
 
-// 初始化页面
-function themeBoot() {
-  if (window.is_post) {
-    addCopyIcons();
-    setLanguageAttributes();
-    bindScrollEvent();
-    bindClickEvent();
-  }
+        if (typeof ClipboardJS !== 'undefined' && clipboard) {
+            $('figure.highlight').each(function() {
+                const id = 'code-' + Date.now() + (Math.random() * 1000 | 0);
+                const button = '<a href="javascript:;" class="copy" title="Copy" data-clipboard-target="#' + id + ' .code"><i class="fas fa-copy"></i></a>';
+                $(this).attr('id', id);
+                $(this).find('figcaption div.level-right').append(button);
+            });
+            new ClipboardJS('.highlight .copy'); // eslint-disable-line no-new
+        }
 
-  lazyloadLoad();
+        if (fold) {
+            $('figure.highlight').each(function() {
+                $(this).addClass('foldable'); // add 'foldable' class as long as fold is enabled
 
-}
+                if ($(this).find('figcaption').find('span').length > 0) {
+                    const span = $(this).find('figcaption').find('span');
+                    if (span[0].innerText.indexOf('>folded') > -1) {
+                        span[0].innerText = span[0].innerText.replace('>folded', '');
+                        $(this).find('figcaption div.level-left').prepend(createFoldButton('folded'));
+                        toggleFold(this, true);
+                        return;
+                    }
+                }
+                $(this).find('figcaption div.level-left').prepend(createFoldButton(fold));
+                toggleFold(this, fold === 'folded');
+            });
 
-window.addEventListener('DOMContentLoaded', () => {
-  themeBoot();
-});
+            $('figure.highlight figcaption .level-left').click(function() {
+                const $code = $(this).closest('figure.highlight');
+                toggleFold($code.eq(0), !$code.hasClass('folded'));
+            });
+        }
+    }
 
-// hexo-blog-encrypt See https://github.com/D0n9X1n/hexo-blog-encrypt
-window.addEventListener('hexo-blog-decrypt', () => {
-  themeBoot();
-});
+    const $toc = $('#toc');
+    if ($toc.length > 0) {
+        const $mask = $('<div>');
+        $mask.attr('id', 'toc-mask');
+
+        $('body').append($mask);
+
+        function toggleToc() { // eslint-disable-line no-inner-declarations
+            $toc.toggleClass('is-active');
+            $mask.toggleClass('is-active');
+        }
+
+        $toc.on('click', toggleToc);
+        $mask.on('click', toggleToc);
+        $('.navbar-main .catalogue').on('click', toggleToc);
+    }
+}(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings));
