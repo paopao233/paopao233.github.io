@@ -1,43 +1,212 @@
-const { Component } = require('inferno');
-const classname = require('hexo-component-inferno/lib/util/classname');
-const Head = require('./common/head');
-const Navbar = require('./common/navbar');
-const Widgets = require('./common/widgets');
-const Footer = require('./common/footer');
-const Scripts = require('./common/scripts');
-const Search = require('./common/search');
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
 
-module.exports = class extends Component {
-    render() {
-        const { site, config, page, helper, body } = this.props;
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
 
-        const language = page.lang || page.language || config.language;
-        const columnCount = Widgets.getColumnCount(config.widgets, config, page);
+<meta charset="utf-8" >
 
-        return <html lang={language ? language.substr(0, 2) : ''}>
-            <Head site={site} config={config} helper={helper} page={page} />
-            <body class={`is-${columnCount}-column`}>
-                <Navbar config={config} helper={helper} page={page} />
-                <section class="section">
-                    <div class="container">
-                        <div class="columns">
-                            <div class={classname({
-                                column: true,
-                                'order-2': true,
-                                'column-main': true,
-                                'is-12': columnCount === 1,
-                                'is-8-tablet is-8-desktop is-8-widescreen': columnCount === 2,
-                                'is-8-tablet is-8-desktop is-6-widescreen': columnCount === 3
-                            })} dangerouslySetInnerHTML={{ __html: body }}></div>
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'left'} />
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'right'} />
-                        </div>
-                    </div>
-                </section>
-                <Footer config={config} helper={helper} />
-                <Scripts site={site} config={config} helper={helper} page={page} />
-                <Search config={config} helper={helper} />
-            </body>
-        </html>;
-    }
-};
+<title>面试官：怎么设计一个部门表？</title>
+<meta name="keywords" content="面试官：怎么设计一个部门表？, 万物天空">
+<meta name="description" content="需求昨天面试遇到的一个问题，要构建一个部门表，基础字段有部门名、部门id。
+问，怎么设计这个部门？如果要你写一条SQL，根据部门ID查询出直接子部门和非直接子部门，那要怎么设计？多少个表？
+解决方案表结构设计
+123456CREATE TA">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="面试官：怎么设计一个部门表？">
+<meta property="og:description" content="需求昨天面试遇到的一个问题，要构建一个部门表，基础字段有部门名、部门id。
+问，怎么设计这个部门？如果要你写一条SQL，根据部门ID查询出直接子部门和非直接子部门，那要怎么设计？多少个表？
+解决方案表结构设计
+123456CREATE TA">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://www.loveasd.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://www.loveasd.com">
+        <h1 class="site-title">万物天空</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">面试官：怎么设计一个部门表？</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-03-12</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/Mysql/">
+              Mysql
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>昨天面试遇到的一个问题，要构建一个部门表，基础字段有部门名、部门id。</p>
+<p>问，怎么设计这个部门？如果要你写一条SQL，根据部门ID查询出直接子部门和非直接子部门，那要怎么设计？多少个表？</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>表结构设计</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE dept (</span><br><span class="line">    dept_id INT AUTO_INCREMENT PRIMARY KEY,</span><br><span class="line">    dept_name VARCHAR(50) NOT NULL,</span><br><span class="line">    parent_id INT,</span><br><span class="line">    ancestors VARCHAR(255)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>解释，ancestors 存放的是祖宗的主键值，主要是用来存放本部门的祖宗的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">假设部门的关系如下：</span><br><span class="line"></span><br><span class="line">- A部门: ID=1</span><br><span class="line">- B部门: ID=2（父部门是A）</span><br><span class="line">- C部门: ID=3（父部门是B）</span><br><span class="line"></span><br><span class="line">在这种情况下，部门的`ancestors`字段会设置为：</span><br><span class="line"></span><br><span class="line">- A部门的`ancestors`为空，因为它是顶级部门。</span><br><span class="line">- B部门的`ancestors`为`1`，表示A是B的直接上级。</span><br><span class="line">- C部门的`ancestors`为`1,2`，表示A是C的顶级上级，B是C的直接上级。</span><br></pre></td></tr></table></figure>
+
+<p>这样子做的好处是，查询直接子部门和非直接子部门只需要遍历这个ancestors 即可，无需借助其他的。如果没有<code>ancestors</code>的帮助，我们需要在代码中通过parent_id逐层逐级的遍历列举以及合并列表。查询的sql也只需要这样子。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * from dept</span><br><span class="line">WHERE dept_id IN ( SELECT dept_id FROM dept WHERE find_in_set(&#x27;查询的ID&#x27;, ancestors ) )</span><br><span class="line"></span><br><span class="line"># FIND_IN_SET(&#x27;2&#x27;, ancestors) 就是在 ancestors 字段中查找是否存在 &#x27;2&#x27;，</span><br><span class="line"># 如果存在，返回其位置（非零值）。</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>每次维护表的时候，都要专门去维护ancestors 这个节点，会加大维护成本</p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E9%9C%80%E6%B1%82"><span class="top-box-text">需求</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="top-box-text">解决方案</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%BC%BA%E7%82%B9"><span class="top-box-text">缺点</span></a></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/p/d60be7ec.html">
+          <h3 class="post-title">
+            下一篇：人大金仓创建Postgresql表并设置主键自增
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+    <div id="gitalk-container"></div>
+
+
+
+
+
+
+<script>
+    (function () {
+        const jq = document.createElement('script');
+        jq.src = "/js/twikoo.min.js";
+        document.getElementsByTagName('body')[0].appendChild(jq);
+
+        const config = {"envId":"https://wwtk-twikoo-o74lzzq47-zixingyx-gmailcom.vercel.app","region":null,"mark":null};
+        jq.onload = function () {
+            twikoo.init({
+                envId: config.envId,
+                el: '#gitalk-container',
+                region: config.region,
+                path: location.pathname + (config.mark ? '?mark=' + config.mark : ''),
+                lang: config.language,
+            });
+        }
+    })()
+</script>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/paopao233" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

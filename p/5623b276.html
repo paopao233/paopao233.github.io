@@ -1,43 +1,228 @@
-const { Component } = require('inferno');
-const classname = require('hexo-component-inferno/lib/util/classname');
-const Head = require('./common/head');
-const Navbar = require('./common/navbar');
-const Widgets = require('./common/widgets');
-const Footer = require('./common/footer');
-const Scripts = require('./common/scripts');
-const Search = require('./common/search');
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
 
-module.exports = class extends Component {
-    render() {
-        const { site, config, page, helper, body } = this.props;
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
 
-        const language = page.lang || page.language || config.language;
-        const columnCount = Widgets.getColumnCount(config.widgets, config, page);
+<meta charset="utf-8" >
 
-        return <html lang={language ? language.substr(0, 2) : ''}>
-            <Head site={site} config={config} helper={helper} page={page} />
-            <body class={`is-${columnCount}-column`}>
-                <Navbar config={config} helper={helper} page={page} />
-                <section class="section">
-                    <div class="container">
-                        <div class="columns">
-                            <div class={classname({
-                                column: true,
-                                'order-2': true,
-                                'column-main': true,
-                                'is-12': columnCount === 1,
-                                'is-8-tablet is-8-desktop is-8-widescreen': columnCount === 2,
-                                'is-8-tablet is-8-desktop is-6-widescreen': columnCount === 3
-                            })} dangerouslySetInnerHTML={{ __html: body }}></div>
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'left'} />
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'right'} />
-                        </div>
-                    </div>
-                </section>
-                <Footer config={config} helper={helper} />
-                <Scripts site={site} config={config} helper={helper} page={page} />
-                <Search config={config} helper={helper} />
-            </body>
-        </html>;
-    }
-};
+<title>利用正则表达式在Vscode上去除空行、注释</title>
+<meta name="keywords" content="利用正则表达式在Vscode上去除空行、注释, 万物天空">
+<meta name="description" content="写在前面最近被软著搞到疯了，满60页代码、不能出现空行注释等情况。
+代码均是在项目copy过来的，所以肯定是有空行和注释的，在word上可以一键去除空行，但是注释就有点麻烦。
+于是想到把文字复制到Vscode上面，通过正则来去除这些。
+然后">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="利用正则表达式在Vscode上去除空行、注释">
+<meta property="og:description" content="写在前面最近被软著搞到疯了，满60页代码、不能出现空行注释等情况。
+代码均是在项目copy过来的，所以肯定是有空行和注释的，在word上可以一键去除空行，但是注释就有点麻烦。
+于是想到把文字复制到Vscode上面，通过正则来去除这些。
+然后">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://www.loveasd.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://www.loveasd.com">
+        <h1 class="site-title">万物天空</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">利用正则表达式在Vscode上去除空行、注释</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-06-01</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+              正则表达式
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/VSCODE/">
+              VSCODE
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>最近被软著搞到疯了，满60页代码、不能出现空行注释等情况。</p>
+<p>代码均是在项目copy过来的，所以肯定是有空行和注释的，在word上可以一键去除空行，但是注释就有点麻烦。</p>
+<p>于是想到把文字复制到Vscode上面，通过正则来去除这些。</p>
+<p>然后6000多行的代码，去除空行和注释以后，剩下4000多，累了…</p>
+<h1 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h1><p>首先在vscode按住CTRL+H，然后输入下面的正则</p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://oss.loveasd.com/loveasd-oss/2023/06/b6d2bd002ec3b9be4a3eea319eff3eca.png"><img   src="/images/loading.svg" data-src="https://oss.loveasd.com/loveasd-oss/2023/06/b6d2bd002ec3b9be4a3eea319eff3eca.png"  alt="image-20230601131147784" lazyload></a></p>
+<h1 id="选中全部查询的"><a href="#选中全部查询的" class="headerlink" title="选中全部查询的"></a>选中全部查询的</h1><p>输入相对应的正则以后，应该就可以看到有匹配的，这时候就要选择多个查找出来的</p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://oss.loveasd.com/loveasd-oss/2023/06/0b5809ebeb6279fc362300c068172a4d.png"><img   src="/images/loading.svg" data-src="https://oss.loveasd.com/loveasd-oss/2023/06/0b5809ebeb6279fc362300c068172a4d.png"  alt="image-20230601131637155" lazyload></a></p>
+<h1 id="去除注释"><a href="#去除注释" class="headerlink" title="去除注释"></a>去除注释</h1><h2 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//[\s\S]*?\n</span><br></pre></td></tr></table></figure>
+
+<h2 id="块注释"><a href="#块注释" class="headerlink" title="块注释"></a>块注释</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/\*(.|\r\n|\n)*?\*/</span><br></pre></td></tr></table></figure>
+
+<h2 id="所有注释"><a href="#所有注释" class="headerlink" title="所有注释"></a>所有注释</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\/\*[\s\S]*\*\/|\/\/.*</span><br></pre></td></tr></table></figure>
+
+<h2 id="html注释"><a href="#html注释" class="headerlink" title="html注释"></a>html注释</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--(.*?)--&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="去除空行"><a href="#去除空行" class="headerlink" title="去除空行"></a>去除空行</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\s*(?=\r?$)\n</span><br></pre></td></tr></table></figure>
+
+<h1 id="参照"><a href="#参照" class="headerlink" title="参照"></a>参照</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39779233/article/details/120416227?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-120416227-blog-128870790.235%5Ev36%5Epc_relevant_default_base3&spm=1001.2101.3001.4242.2&utm_relevant_index=4">Vscode 快捷操作_vscode删除一列_</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yjjjjz/article/details/89521414?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-89521414-blog-121166373.235%5Ev36%5Epc_relevant_default_base3&spm=1001.2101.3001.4242.2&utm_relevant_index=2">(29条消息) VScode使用正则表达式快速删除注释</a></li>
+</ul>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="top-box-text">写在前面</span></a></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E6%9F%A5%E8%AF%A2"><span class="top-box-text">查询</span></a></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E9%80%89%E4%B8%AD%E5%85%A8%E9%83%A8%E6%9F%A5%E8%AF%A2%E7%9A%84"><span class="top-box-text">选中全部查询的</span></a></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E5%8E%BB%E9%99%A4%E6%B3%A8%E9%87%8A"><span class="top-box-text">去除注释</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%8D%95%E8%A1%8C%E6%B3%A8%E9%87%8A"><span class="top-box-text">单行注释</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%9D%97%E6%B3%A8%E9%87%8A"><span class="top-box-text">块注释</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%89%80%E6%9C%89%E6%B3%A8%E9%87%8A"><span class="top-box-text">所有注释</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#html%E6%B3%A8%E9%87%8A"><span class="top-box-text">html注释</span></a></li></ol></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E5%8E%BB%E9%99%A4%E7%A9%BA%E8%A1%8C"><span class="top-box-text">去除空行</span></a></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E5%8F%82%E7%85%A7"><span class="top-box-text">参照</span></a></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/p/16a9afcf.html">
+          <h3 class="post-title">
+            下一篇：RabbitMQ入门学习
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+    <div id="gitalk-container"></div>
+
+
+
+
+
+
+<script>
+    (function () {
+        const jq = document.createElement('script');
+        jq.src = "/js/twikoo.min.js";
+        document.getElementsByTagName('body')[0].appendChild(jq);
+
+        const config = {"envId":"https://wwtk-twikoo-o74lzzq47-zixingyx-gmailcom.vercel.app","region":null,"mark":null};
+        jq.onload = function () {
+            twikoo.init({
+                envId: config.envId,
+                el: '#gitalk-container',
+                region: config.region,
+                path: location.pathname + (config.mark ? '?mark=' + config.mark : ''),
+                lang: config.language,
+            });
+        }
+    })()
+</script>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/paopao233" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+</html>
+

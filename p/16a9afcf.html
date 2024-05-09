@@ -1,43 +1,325 @@
-const { Component } = require('inferno');
-const classname = require('hexo-component-inferno/lib/util/classname');
-const Head = require('./common/head');
-const Navbar = require('./common/navbar');
-const Widgets = require('./common/widgets');
-const Footer = require('./common/footer');
-const Scripts = require('./common/scripts');
-const Search = require('./common/search');
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
 
-module.exports = class extends Component {
-    render() {
-        const { site, config, page, helper, body } = this.props;
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
 
-        const language = page.lang || page.language || config.language;
-        const columnCount = Widgets.getColumnCount(config.widgets, config, page);
+<meta charset="utf-8" >
 
-        return <html lang={language ? language.substr(0, 2) : ''}>
-            <Head site={site} config={config} helper={helper} page={page} />
-            <body class={`is-${columnCount}-column`}>
-                <Navbar config={config} helper={helper} page={page} />
-                <section class="section">
-                    <div class="container">
-                        <div class="columns">
-                            <div class={classname({
-                                column: true,
-                                'order-2': true,
-                                'column-main': true,
-                                'is-12': columnCount === 1,
-                                'is-8-tablet is-8-desktop is-8-widescreen': columnCount === 2,
-                                'is-8-tablet is-8-desktop is-6-widescreen': columnCount === 3
-                            })} dangerouslySetInnerHTML={{ __html: body }}></div>
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'left'} />
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'right'} />
-                        </div>
-                    </div>
-                </section>
-                <Footer config={config} helper={helper} />
-                <Scripts site={site} config={config} helper={helper} page={page} />
-                <Search config={config} helper={helper} />
-            </body>
-        </html>;
-    }
-};
+<title>RabbitMQ入门学习</title>
+<meta name="keywords" content="RabbitMQ入门学习, 万物天空">
+<meta name="description" content="一、MQ入门1.1 消息中间件的协议1. AMQP协议
+分布式事务；
+
+消息的持久化；
+
+高性能、高可靠的处理优势；
+
+
+2. MQTT协议
+物联网的重要组成部分。
+
+低延迟、低带宽、不支持事务
+
+
+3. OpenMessage协议
+Roc">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="RabbitMQ入门学习">
+<meta property="og:description" content="一、MQ入门1.1 消息中间件的协议1. AMQP协议
+分布式事务；
+
+消息的持久化；
+
+高性能、高可靠的处理优势；
+
+
+2. MQTT协议
+物联网的重要组成部分。
+
+低延迟、低带宽、不支持事务
+
+
+3. OpenMessage协议
+Roc">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://www.loveasd.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://www.loveasd.com">
+        <h1 class="site-title">万物天空</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">RabbitMQ入门学习</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-05-31</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/RabbitMQ/">
+              RabbitMQ
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h1 id="一、MQ入门"><a href="#一、MQ入门" class="headerlink" title="一、MQ入门"></a>一、MQ入门</h1><h2 id="1-1-消息中间件的协议"><a href="#1-1-消息中间件的协议" class="headerlink" title="1.1 消息中间件的协议"></a>1.1 消息中间件的协议</h2><h3 id="1-AMQP协议"><a href="#1-AMQP协议" class="headerlink" title="1. AMQP协议"></a>1. AMQP协议</h3><ul>
+<li><p>分布式事务；</p>
+</li>
+<li><p>消息的持久化；</p>
+</li>
+<li><p>高性能、高可靠的处理优势；</p>
+</li>
+</ul>
+<h3 id="2-MQTT协议"><a href="#2-MQTT协议" class="headerlink" title="2. MQTT协议"></a>2. MQTT协议</h3><ul>
+<li><p>物联网的重要组成部分。</p>
+</li>
+<li><p>低延迟、低带宽、不支持事务</p>
+</li>
+</ul>
+<h3 id="3-OpenMessage协议"><a href="#3-OpenMessage协议" class="headerlink" title="3. OpenMessage协议"></a>3. OpenMessage协议</h3><ul>
+<li><p>RocketMQ采用的协议。国内的阿里、雅虎等公司一起创作。</p>
+</li>
+<li><p>支持事务，持久化</p>
+</li>
+</ul>
+<h3 id="4-Kafka协议"><a href="#4-Kafka协议" class="headerlink" title="4. Kafka协议"></a>4. Kafka协议</h3><ul>
+<li><p>基于TCP&#x2F;IP协议，采用二进制进行传输。</p>
+</li>
+<li><p>结构简单，不支持事务，支持持久化</p>
+</li>
+</ul>
+<h2 id="1-2-消息分发机制"><a href="#1-2-消息分发机制" class="headerlink" title="1.2 消息分发机制"></a>1.2 消息分发机制</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>ActiveMQ</th>
+<th>RabbitMQ</th>
+<th>Kafka</th>
+<th>RocketMQ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>发布订阅</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>轮询分发</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>公平分发</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>重发</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td>√</td>
+</tr>
+<tr>
+<td>消息拉取</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+</tbody></table>
+<p>轮询分发、公平分发它们都是保证消息只能够读取一次。</p>
+<ul>
+<li><p>轮询分发：每个消费者消费的消息总数量是一致的；</p>
+</li>
+<li><p>公平分发：能者多劳，消费者性能好，处理的请求就会比较多；必须手动应答，不支持自动应答</p>
+</li>
+</ul>
+<h2 id="1-3-消息的高可用"><a href="#1-3-消息的高可用" class="headerlink" title="1.3 消息的高可用"></a>1.3 消息的高可用</h2><h3 id="集群模式1：Master-Slave：主从共享数据"><a href="#集群模式1：Master-Slave：主从共享数据" class="headerlink" title="集群模式1：Master-Slave：主从共享数据"></a>集群模式1：Master-Slave：主从共享数据</h3><p>生产者将消息发送到主节点，所有的都节点连接这个消息队列共享这块的数据区域。主节点写入，一旦主节点挂掉，从节点继续服务。</p>
+<h3 id="集群模式2：Master-Slave：主从同步数据"><a href="#集群模式2：Master-Slave：主从同步数据" class="headerlink" title="集群模式2：Master-Slave：主从同步数据"></a>集群模式2：Master-Slave：主从同步数据</h3><p>与Redis的主从同步差不多</p>
+<h3 id="集群模式3：多主集群同步部署模式"><a href="#集群模式3：多主集群同步部署模式" class="headerlink" title="集群模式3：多主集群同步部署模式"></a>集群模式3：多主集群同步部署模式</h3><p>与2差不多，写入是可以任意节点进行写入。</p>
+<h3 id="集群模式4：多主集群转发部署模式"><a href="#集群模式4：多主集群转发部署模式" class="headerlink" title="集群模式4：多主集群转发部署模式"></a>集群模式4：多主集群转发部署模式</h3><p>元数据共享，当查找数据的时候，就会判断消息的元数据是否存在，存在则返回，否则就去问其他的消费者。</p>
+<h3 id="集群模式5：Master-Slave与Broker-Cluster组合方案"><a href="#集群模式5：Master-Slave与Broker-Cluster组合方案" class="headerlink" title="集群模式5：Master-Slave与Broker-Cluster组合方案"></a>集群模式5：Master-Slave与Broker-Cluster组合方案</h3><p><strong>集群模式的总结</strong></p>
+<ul>
+<li>消息共享</li>
+<li>消息同步</li>
+<li>元数据共享</li>
+</ul>
+<h2 id="1-4-消息的高可靠"><a href="#1-4-消息的高可靠" class="headerlink" title="1.4 消息的高可靠"></a>1.4 消息的高可靠</h2><ul>
+<li>消息的传输：协议保证</li>
+<li>消息的存储：持久化</li>
+</ul>
+<h2 id="1-5-MQ的使用场景"><a href="#1-5-MQ的使用场景" class="headerlink" title="1.5 MQ的使用场景"></a>1.5 MQ的使用场景</h2><p>流量消峰、应用解耦、异步处理</p>
+<p>在说这个部分的时候，跟自己的业务结合一起去阐述三个场景。</p>
+<h1 id="二、RabbitMQ"><a href="#二、RabbitMQ" class="headerlink" title="二、RabbitMQ"></a>二、RabbitMQ</h1><h2 id="2-1-RabbitMQ安装"><a href="#2-1-RabbitMQ安装" class="headerlink" title="2.1 RabbitMQ安装"></a>2.1 RabbitMQ安装</h2><p>首先可以进入RabbitMQ官网上查看 RabbitMQ Erlang版本要求</p>
+<p>Linux安装视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dX4y1V73G?p=9">https://www.bilibili.com/video/BV1dX4y1V73G?p=9</a></p>
+<p>Windows安装文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/saryli/p/9729591.html">https://www.cnblogs.com/saryli/p/9729591.html</a></p>
+<p>Docker安装视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dX4y1V73G?p=10">https://www.bilibili.com/video/BV1dX4y1V73G?p=10</a></p>
+<blockquote>
+<h5 id="端口15672：通过-http-serverip-15672-访问-RabbitMQ-的-Web-管理界面，默认用户名密码都是-guest"><a href="#端口15672：通过-http-serverip-15672-访问-RabbitMQ-的-Web-管理界面，默认用户名密码都是-guest" class="headerlink" title="端口15672：通过 http://serverip:15672 访问 RabbitMQ 的 Web 管理界面，默认用户名密码都是 guest"></a>端口15672：通过 <a target="_blank" rel="noopener" href="http://serverip:15672/">http://serverip:15672</a> 访问 RabbitMQ 的 Web 管理界面，默认用户名密码都是 guest</h5><h5 id="端口5672-5671（-used-by-AMQP-0-9-1-and-1-0-clients-without-and-with-TLS-）由AMQP0-9-1和1-0客户机使用，不带和带TLS"><a href="#端口5672-5671（-used-by-AMQP-0-9-1-and-1-0-clients-without-and-with-TLS-）由AMQP0-9-1和1-0客户机使用，不带和带TLS" class="headerlink" title="端口5672,5671（ used by AMQP 0-9-1 and 1.0 clients without and with TLS ）由AMQP0-9-1和1.0客户机使用，不带和带TLS"></a>端口5672,5671（ used by AMQP 0-9-1 and 1.0 clients without and with TLS ）由AMQP0-9-1和1.0客户机使用，不带和带TLS</h5><h5 id="端口25672：用于节点间和CLI工具通信（Erlang分发服务器端口），并且是从动态范围分配（默认情况下限制为一个端口，计算为AMQP端口-20000）"><a href="#端口25672：用于节点间和CLI工具通信（Erlang分发服务器端口），并且是从动态范围分配（默认情况下限制为一个端口，计算为AMQP端口-20000）" class="headerlink" title="端口25672：用于节点间和CLI工具通信（Erlang分发服务器端口），并且是从动态范围分配（默认情况下限制为一个端口，计算为AMQP端口+20000）"></a>端口25672：用于节点间和CLI工具通信（Erlang分发服务器端口），并且是从动态范围分配（默认情况下限制为一个端口，计算为AMQP端口+20000）</h5></blockquote>
+<h2 id="2-2-RabbitMQ的核心概念"><a href="#2-2-RabbitMQ的核心概念" class="headerlink" title="2.2 RabbitMQ的核心概念"></a>2.2 RabbitMQ的核心概念</h2><p>生产者、交换机、队列、消费者</p>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E4%B8%80%E3%80%81MQ%E5%85%A5%E9%97%A8"><span class="top-box-text">一、MQ入门</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#1-1-%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="top-box-text">1.1 消息中间件的协议</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#1-AMQP%E5%8D%8F%E8%AE%AE"><span class="top-box-text">1. AMQP协议</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#2-MQTT%E5%8D%8F%E8%AE%AE"><span class="top-box-text">2. MQTT协议</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#3-OpenMessage%E5%8D%8F%E8%AE%AE"><span class="top-box-text">3. OpenMessage协议</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#4-Kafka%E5%8D%8F%E8%AE%AE"><span class="top-box-text">4. Kafka协议</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#1-2-%E6%B6%88%E6%81%AF%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6"><span class="top-box-text">1.2 消息分发机制</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#1-3-%E6%B6%88%E6%81%AF%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="top-box-text">1.3 消息的高可用</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F1%EF%BC%9AMaster-Slave%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE"><span class="top-box-text">集群模式1：Master-Slave：主从共享数据</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F2%EF%BC%9AMaster-Slave%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E6%95%B0%E6%8D%AE"><span class="top-box-text">集群模式2：Master-Slave：主从同步数据</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F3%EF%BC%9A%E5%A4%9A%E4%B8%BB%E9%9B%86%E7%BE%A4%E5%90%8C%E6%AD%A5%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F"><span class="top-box-text">集群模式3：多主集群同步部署模式</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F4%EF%BC%9A%E5%A4%9A%E4%B8%BB%E9%9B%86%E7%BE%A4%E8%BD%AC%E5%8F%91%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F"><span class="top-box-text">集群模式4：多主集群转发部署模式</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F5%EF%BC%9AMaster-Slave%E4%B8%8EBroker-Cluster%E7%BB%84%E5%90%88%E6%96%B9%E6%A1%88"><span class="top-box-text">集群模式5：Master-Slave与Broker-Cluster组合方案</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#1-4-%E6%B6%88%E6%81%AF%E7%9A%84%E9%AB%98%E5%8F%AF%E9%9D%A0"><span class="top-box-text">1.4 消息的高可靠</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#1-5-MQ%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="top-box-text">1.5 MQ的使用场景</span></a></li></ol></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#%E4%BA%8C%E3%80%81RabbitMQ"><span class="top-box-text">二、RabbitMQ</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#2-1-RabbitMQ%E5%AE%89%E8%A3%85"><span class="top-box-text">2.1 RabbitMQ安装</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#2-2-RabbitMQ%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="top-box-text">2.2 RabbitMQ的核心概念</span></a></li></ol></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/p/9a4d61d1.html">
+          <h3 class="post-title">
+            下一篇：用油猴脚本来自动填写问卷星的调查问卷，分分钟100+
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+    <div id="gitalk-container"></div>
+
+
+
+
+
+
+<script>
+    (function () {
+        const jq = document.createElement('script');
+        jq.src = "/js/twikoo.min.js";
+        document.getElementsByTagName('body')[0].appendChild(jq);
+
+        const config = {"envId":"https://wwtk-twikoo-o74lzzq47-zixingyx-gmailcom.vercel.app","region":null,"mark":null};
+        jq.onload = function () {
+            twikoo.init({
+                envId: config.envId,
+                el: '#gitalk-container',
+                region: config.region,
+                path: location.pathname + (config.mark ? '?mark=' + config.mark : ''),
+                lang: config.language,
+            });
+        }
+    })()
+</script>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/paopao233" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

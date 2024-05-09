@@ -1,43 +1,213 @@
-const { Component } = require('inferno');
-const classname = require('hexo-component-inferno/lib/util/classname');
-const Head = require('./common/head');
-const Navbar = require('./common/navbar');
-const Widgets = require('./common/widgets');
-const Footer = require('./common/footer');
-const Scripts = require('./common/scripts');
-const Search = require('./common/search');
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
 
-module.exports = class extends Component {
-    render() {
-        const { site, config, page, helper, body } = this.props;
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
 
-        const language = page.lang || page.language || config.language;
-        const columnCount = Widgets.getColumnCount(config.widgets, config, page);
+<meta charset="utf-8" >
 
-        return <html lang={language ? language.substr(0, 2) : ''}>
-            <Head site={site} config={config} helper={helper} page={page} />
-            <body class={`is-${columnCount}-column`}>
-                <Navbar config={config} helper={helper} page={page} />
-                <section class="section">
-                    <div class="container">
-                        <div class="columns">
-                            <div class={classname({
-                                column: true,
-                                'order-2': true,
-                                'column-main': true,
-                                'is-12': columnCount === 1,
-                                'is-8-tablet is-8-desktop is-8-widescreen': columnCount === 2,
-                                'is-8-tablet is-8-desktop is-6-widescreen': columnCount === 3
-                            })} dangerouslySetInnerHTML={{ __html: body }}></div>
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'left'} />
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'right'} />
-                        </div>
-                    </div>
-                </section>
-                <Footer config={config} helper={helper} />
-                <Scripts site={site} config={config} helper={helper} page={page} />
-                <Search config={config} helper={helper} />
-            </body>
-        </html>;
-    }
-};
+<title>RabbitMq 点击Exchanges出现Management API returned status code 500错误解决方法</title>
+<meta name="keywords" content="RabbitMq 点击Exchanges出现Management API returned status code 500错误解决方法, 万物天空">
+<meta name="description" content="前言最近项目部署RabbitMQ中间件，使用DEV服务器安装的mq在图形化界面点击Exchanges交换机的时候出现
+“Management API returned status code 500 -” 的错误，对于已经很久没玩mq的我有">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="RabbitMq 点击Exchanges出现Management API returned status code 500错误解决方法">
+<meta property="og:description" content="前言最近项目部署RabbitMQ中间件，使用DEV服务器安装的mq在图形化界面点击Exchanges交换机的时候出现
+“Management API returned status code 500 -” 的错误，对于已经很久没玩mq的我有">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://www.loveasd.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://www.loveasd.com">
+        <h1 class="site-title">万物天空</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">RabbitMq 点击Exchanges出现Management API returned status code 500错误解决方法</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-05-12</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/RabbitMQ/">
+              RabbitMQ
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近项目部署RabbitMQ中间件，使用DEV服务器安装的mq在图形化界面点击Exchanges交换机的时候出现</p>
+<p><strong>“Management API returned status code 500 -”</strong> 的错误，对于已经很久没玩mq的我有点懵逼。</p>
+<p>搜索了一圈，发现新的版本好像默认会关闭UI数据分析可视化查询，然后进去容器里面追加一个配置重启就可以了。</p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://oss.loveasd.com/loveasd-oss/2023/05/ed9e8138ce38015f283eafee2a42d870.png"><img   src="/images/loading.svg" data-src="https://oss.loveasd.com/loveasd-oss/2023/05/ed9e8138ce38015f283eafee2a42d870.png"  alt="image-20230512160550506" lazyload></a></p>
+<h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><p>首先进入自己的mq容器</p>
+<p><strong>docker exec -it rabbitmq &#x2F;bin&#x2F;bash</strong></p>
+<p>进入到容器以后cd到这个目录，**&#x2F;etc&#x2F;rabbitmq&#x2F;conf.d&#x2F;**</p>
+<p>然后执行这个命令， <strong>echo management_agent.disable_metrics_collector &#x3D; false &gt; management_agent.disable_metrics_collector.conf</strong></p>
+<p>重启你的mq容器  <strong>docker restart rabbitmq</strong></p>
+<p>然后就可以啦！</p>
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://oss.loveasd.com/loveasd-oss/2023/05/cdd2aed309e1026a89085eeeaeb3e5c7.png"><img   src="/images/loading.svg" data-src="https://oss.loveasd.com/loveasd-oss/2023/05/cdd2aed309e1026a89085eeeaeb3e5c7.png"  alt="image-20230512160654922" lazyload></a></p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>rabbitMq好久没接触过，都忘了怎么玩了，有时间重新学习一下！写这个文章是为了作一下记录，避免以后遇到同样的问题。</p>
+<p>而且其实我还有疑问的，为什么我线上部署的版本不用关闭这个也不会出现这样子的错误呢？有时间研究…</p>
+<p>借鉴</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/aiwangtingyun/article/details/109778815">【RabbitMQ】之解决后台管理页面 Channels 报错提示</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/523562639">RabbitMQ在Docker中安装以及Management API returned status code 500错误)</a></li>
+</ul>
+
+        </div>
+          
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%89%8D%E8%A8%80"><span class="top-box-text">前言</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%95%99%E7%A8%8B"><span class="top-box-text">教程</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="top-box-text">写在后面</span></a></li></ol>
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/p/c5eeaec6.html">
+          <h3 class="post-title">
+            下一篇：记录一次线上服务事故
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+    <div id="gitalk-container"></div>
+
+
+
+
+
+
+<script>
+    (function () {
+        const jq = document.createElement('script');
+        jq.src = "/js/twikoo.min.js";
+        document.getElementsByTagName('body')[0].appendChild(jq);
+
+        const config = {"envId":"https://wwtk-twikoo-o74lzzq47-zixingyx-gmailcom.vercel.app","region":null,"mark":null};
+        jq.onload = function () {
+            twikoo.init({
+                envId: config.envId,
+                el: '#gitalk-container',
+                region: config.region,
+                path: location.pathname + (config.mark ? '?mark=' + config.mark : ''),
+                lang: config.language,
+            });
+        }
+    })()
+</script>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/paopao233" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+</html>
+

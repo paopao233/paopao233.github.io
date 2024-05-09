@@ -1,43 +1,450 @@
-const { Component } = require('inferno');
-const classname = require('hexo-component-inferno/lib/util/classname');
-const Head = require('./common/head');
-const Navbar = require('./common/navbar');
-const Widgets = require('./common/widgets');
-const Footer = require('./common/footer');
-const Scripts = require('./common/scripts');
-const Search = require('./common/search');
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
 
-module.exports = class extends Component {
-    render() {
-        const { site, config, page, helper, body } = this.props;
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
 
-        const language = page.lang || page.language || config.language;
-        const columnCount = Widgets.getColumnCount(config.widgets, config, page);
+<meta charset="utf-8" >
 
-        return <html lang={language ? language.substr(0, 2) : ''}>
-            <Head site={site} config={config} helper={helper} page={page} />
-            <body class={`is-${columnCount}-column`}>
-                <Navbar config={config} helper={helper} page={page} />
-                <section class="section">
-                    <div class="container">
-                        <div class="columns">
-                            <div class={classname({
-                                column: true,
-                                'order-2': true,
-                                'column-main': true,
-                                'is-12': columnCount === 1,
-                                'is-8-tablet is-8-desktop is-8-widescreen': columnCount === 2,
-                                'is-8-tablet is-8-desktop is-6-widescreen': columnCount === 3
-                            })} dangerouslySetInnerHTML={{ __html: body }}></div>
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'left'} />
-                            <Widgets site={site} config={config} helper={helper} page={page} position={'right'} />
-                        </div>
-                    </div>
-                </section>
-                <Footer config={config} helper={helper} />
-                <Scripts site={site} config={config} helper={helper} page={page} />
-                <Search config={config} helper={helper} />
-            </body>
-        </html>;
-    }
-};
+<title>万物天空</title>
+<meta name="keywords" content="万物天空, 万物天空">
+<meta name="description" content="万物天空">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="万物天空">
+<meta property="og:description" content="万物天空">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://www.loveasd.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://www.loveasd.com">
+        <h1 class="site-title">万物天空</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+
+    
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/0.html">
+        <h2 class="post-title"></h2>
+      </a>
+      <a href="/p/0.html">
+          <div class="post-abstract">
+            
+			    业务需求教程准备POM依赖12345678910111213141516171819202122232425&lt;!-- itext7html转pdf  --&gt;&lt;dependency&gt;    &lt;groupId&gt
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-04-19</span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/0.html">
+        <h2 class="post-title"></h2>
+      </a>
+      <a href="/p/0.html">
+          <div class="post-abstract">
+            
+			    业务需求教程准备准备好字体，否则会无法打印中文
+POM依赖12345678910111213141516171819202122232425&lt;!-- itext7html转pdf  --&gt;&lt;dependency&gt;  
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-04-18</span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/cee62a0f.html">
+        <h2 class="post-title">vue3的el-form表单输入响应式失效问题（input、单选都无法操作）</h2>
+      </a>
+      <a href="/p/cee62a0f.html">
+          <div class="post-abstract">
+            
+			    写在前面刚到公司，摸一下鱼。昨天朋友问了我一个vue3的一个对话框里面input框和单选框都无法输入或者选中，看了代码也没有禁用啥的操作。一切都正常，最后疯狂开启谷歌，发现命名冲突问题了。
+教程
+从上面可以看到，响应式的名字与model的名
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-04-18</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+
+                vue3
+                
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/4a17b156.html">
+        <h2 class="post-title">Hello World</h2>
+      </a>
+      <a href="/p/4a17b156.html">
+          <div class="post-abstract">
+            
+			    Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-04-18</span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/4c646377.html">
+        <h2 class="post-title">面试官：怎么设计一个部门表？</h2>
+      </a>
+      <a href="/p/4c646377.html">
+          <div class="post-abstract">
+            
+			    需求昨天面试遇到的一个问题，要构建一个部门表，基础字段有部门名、部门id。
+问，怎么设计这个部门？如果要你写一条SQL，根据部门ID查询出直接子部门和非直接子部门，那要怎么设计？多少个表？
+解决方案表结构设计
+123456CREATE TA
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-03-12</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+
+                Mysql
+                
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/d60be7ec.html">
+        <h2 class="post-title">人大金仓创建Postgresql表并设置主键自增</h2>
+      </a>
+      <a href="/p/d60be7ec.html">
+          <div class="post-abstract">
+            
+			    写在前面最近实习了，公司产品用的人大金仓，底层数据库是Postgresql。然后最近在建表，习惯了navicate，用这个一脸懵逼。而且因为需要设置主键自增，在可视化操作那里无法单独添加，很奇怪，会疯狂报错。我观察了其他大佬建的表，都是有一
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-07-11</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+
+                人大金仓,Postgresql
+                
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/5623b276.html">
+        <h2 class="post-title">利用正则表达式在Vscode上去除空行、注释</h2>
+      </a>
+      <a href="/p/5623b276.html">
+          <div class="post-abstract">
+            
+			    写在前面最近被软著搞到疯了，满60页代码、不能出现空行注释等情况。
+代码均是在项目copy过来的，所以肯定是有空行和注释的，在word上可以一键去除空行，但是注释就有点麻烦。
+于是想到把文字复制到Vscode上面，通过正则来去除这些。
+然后
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-06-01</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+
+                正则表达式
+                
+                  ，
+                
+            
+
+                VSCODE
+                
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/16a9afcf.html">
+        <h2 class="post-title">RabbitMQ入门学习</h2>
+      </a>
+      <a href="/p/16a9afcf.html">
+          <div class="post-abstract">
+            
+			    一、MQ入门1.1 消息中间件的协议1. AMQP协议
+分布式事务；
+
+消息的持久化；
+
+高性能、高可靠的处理优势；
+
+
+2. MQTT协议
+物联网的重要组成部分。
+
+低延迟、低带宽、不支持事务
+
+
+3. OpenMessage协议
+Roc
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-05-31</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+
+                RabbitMQ
+                
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/9a4d61d1.html">
+        <h2 class="post-title">用油猴脚本来自动填写问卷星的调查问卷，分分钟100+</h2>
+      </a>
+      <a href="/p/9a4d61d1.html">
+          <div class="post-abstract">
+            
+			    前言最近在写一份调查问卷，用问卷星系统进行填写调查报告，不过这个调查数据也挺水的，只要份数够就行了，所以我就想到可以利用脚本来自动填写问卷。其实之前也有用的Python写的脚本，但是感觉有时候挺麻烦的。
+今天搜了一下发现一个很有用的油猴脚本
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-05-14</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+
+                问卷星
+                
+                  ，
+                
+            
+
+                油猴脚本
+                
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="post-item">
+    <div class="content">
+      <a href="/p/352b77f0.html">
+        <h2 class="post-title">RabbitMq 点击Exchanges出现Management API returned status code 500错误解决方法</h2>
+      </a>
+      <a href="/p/352b77f0.html">
+          <div class="post-abstract">
+            
+			    前言最近项目部署RabbitMQ中间件，使用DEV服务器安装的mq在图形化界面点击Exchanges交换机的时候出现
+“Management API returned status code 500 -” 的错误，对于已经很久没玩mq的我有
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-05-12</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+
+                RabbitMQ
+                
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
+
+
+
+
+    <div class="pagination-container">
+      
+      
+        <a href="/page/2/" class="next">下一页 <i class="icon icon-arrow-ios-forward-outline"></i></a>
+      
+    </div>
+
+
+
+  </div>
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/paopao233" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = false; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
+
