@@ -6,7 +6,7 @@
   <link href="https://www.loveasd.com/atom.xml" rel="self"/>
   
   <link href="https://www.loveasd.com/"/>
-  <updated>2024-05-14T10:15:02.233Z</updated>
+  <updated>2024-05-14T09:56:32.157Z</updated>
   <id>https://www.loveasd.com/</id>
   
   <author>
@@ -15,30 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>分布式事务2pc和tcc的理解</title>
-    <link href="https://www.loveasd.com/p/6c1e1438.html"/>
-    <id>https://www.loveasd.com/p/6c1e1438.html</id>
-    <published>2024-05-10T08:00:00.000Z</published>
-    <updated>2024-05-14T10:15:02.233Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>转载自下面的文章，很容易理解，先保留一下，后面再继续完善<br><a href="https://www.upyun.com/opentalk/332.html">https://www.upyun.com/opentalk/332.html</a></p><h4 id="事务模式-两阶段提交-2PC"><a href="#事务模式-两阶段提交-2PC" class="headerlink" title="事务模式 -两阶段提交(2PC)"></a>事务模式 -两阶段提交(2PC)</h4><p>事物模式的代表就是两阶段提交，它的含义就是每个服务有自己的子事务，服务之间其实也是通过分布式事务来保障事务的一致性。</p><p>所以它在第一阶段的时候，这个协调器会发一个propose的请求给三个服务，如果每个服务都可以接受接下来的事务请求，它就会回复yes或者是no。回复之后就会到第二个阶段，如果前面三个服务回复的都是一个yes，那协调器就会发送commit这个请求，去执行这三个服务的事务操作，否则就会发送一个abort请求。执行完成之后，三个服务会回来一个ack，表示这个事务已经结束，或者是已经取消。</p><p>优点：有事务的原子性，因为在每次做事务操作的时候，都会锁定资源，所以所有进入协调器的请求，其实都是一个线性的请求，它不能去同步所有的事务。</p><p>缺点：它是一个阻塞式的模式，它需要锁定资源，它的复杂度也会相对比较高，比较难扩展。</p><h4 id="预约模式-TCC-Try-Confirm-Cancel"><a href="#预约模式-TCC-Try-Confirm-Cancel" class="headerlink" title="预约模式 -TCC(Try-Confirm&#x2F;Cancel)"></a>预约模式 -TCC(Try-Confirm&#x2F;Cancel)</h4><p>预约模式比较典型的叫Try-Confirm&#x2F;Cancel，缩写就是TCC。它也是一个两阶段的模式。第一个阶段它会发一个try的请求给三个服务，如果三个服务可以执行，它们就会回复yes，不能回复no，这和两阶段<a href="../20240312/%EF%BF%BD%EF%BF%BD%EF%BF%BD%D4%B9%D9%A3%EF%BF%BD%EF%BF%BD%EF%BF%BD%C3%B4%EF%BF%BD%EF%BF%BD%EF%BF%BD%D2%BB%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%C5%B1%EF%BF%BD%EF%BF%BD%EF%BF%BD.md">面试官：怎么设计一个部门表？.md</a>提交是一致的。不一样的地方是它不会锁定资源。所以在A处理完它的子事务，B可能还没有处理完它的子事务的时候，A可以接受其他的请求。在第二阶段，像两阶段提交一样，协调器会根据第一阶段ABC的返回结果去发送Confirm或者Cancel，这样的请求，最后ABC会返回ack。</p><p>优点：在try阶段如果失败，服务会回复至原状，什么意思呢？比如说要发一个会议邀请，如果用TCC的模式，第一阶段会先发一个询问的请求给所有的与会人员，询问是否可以在这一个时间点来参会，如果所有的参会人员都回答yes，第二步就会发送一个确认请求，实际的一个会议邀请，如果有任何一个人员不能参加，就会发送一个Cancel，取消这个会议。</p><p>缺点：</p><ol><li>它不是原子操作，它可以并行处理好多的分布式的事务，然后它在Confirm这个阶段，只能重试，如果有一个服务失败的话，只能重试，直到成功，或者是采取回退措施，需要人工去做干预。</li><li>它需要一个额外的try流程，服务需要提供额外的try的结构，也就需要提供额外的reserved的状态。</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;转载自下面的文章，很容易理解，先保留一下，后面再继续完善&lt;br&gt;&lt;a href=&quot;https://www.upyun.com/opental</summary>
-      
-    
-    
-    
-    <category term="开发日志" scheme="https://www.loveasd.com/categories/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/"/>
-    
-    
-    <category term="分布式事务" scheme="https://www.loveasd.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
-    
-  </entry>
   
   <entry>
     <title>itextpdf+thymeleaf实现html转pdf</title>
@@ -65,6 +41,30 @@
     <category term="thymeleaf" scheme="https://www.loveasd.com/tags/thymeleaf/"/>
     
     <category term="html2pdf" scheme="https://www.loveasd.com/tags/html2pdf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分布式事务2pc和tcc的理解</title>
+    <link href="https://www.loveasd.com/p/6c1e1438.html"/>
+    <id>https://www.loveasd.com/p/6c1e1438.html</id>
+    <published>2024-05-10T08:00:00.000Z</published>
+    <updated>2024-05-14T10:15:02.233Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>转载自下面的文章，很容易理解，先保留一下，后面再继续完善<br><a href="https://www.upyun.com/opentalk/332.html">https://www.upyun.com/opentalk/332.html</a></p><h4 id="事务模式-两阶段提交-2PC"><a href="#事务模式-两阶段提交-2PC" class="headerlink" title="事务模式 -两阶段提交(2PC)"></a>事务模式 -两阶段提交(2PC)</h4><p>事物模式的代表就是两阶段提交，它的含义就是每个服务有自己的子事务，服务之间其实也是通过分布式事务来保障事务的一致性。</p><p>所以它在第一阶段的时候，这个协调器会发一个propose的请求给三个服务，如果每个服务都可以接受接下来的事务请求，它就会回复yes或者是no。回复之后就会到第二个阶段，如果前面三个服务回复的都是一个yes，那协调器就会发送commit这个请求，去执行这三个服务的事务操作，否则就会发送一个abort请求。执行完成之后，三个服务会回来一个ack，表示这个事务已经结束，或者是已经取消。</p><p>优点：有事务的原子性，因为在每次做事务操作的时候，都会锁定资源，所以所有进入协调器的请求，其实都是一个线性的请求，它不能去同步所有的事务。</p><p>缺点：它是一个阻塞式的模式，它需要锁定资源，它的复杂度也会相对比较高，比较难扩展。</p><h4 id="预约模式-TCC-Try-Confirm-Cancel"><a href="#预约模式-TCC-Try-Confirm-Cancel" class="headerlink" title="预约模式 -TCC(Try-Confirm&#x2F;Cancel)"></a>预约模式 -TCC(Try-Confirm&#x2F;Cancel)</h4><p>预约模式比较典型的叫Try-Confirm&#x2F;Cancel，缩写就是TCC。它也是一个两阶段的模式。第一个阶段它会发一个try的请求给三个服务，如果三个服务可以执行，它们就会回复yes，不能回复no，这和两阶段<a href="../20240312/%EF%BF%BD%EF%BF%BD%EF%BF%BD%D4%B9%D9%A3%EF%BF%BD%EF%BF%BD%EF%BF%BD%C3%B4%EF%BF%BD%EF%BF%BD%EF%BF%BD%D2%BB%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%C5%B1%EF%BF%BD%EF%BF%BD%EF%BF%BD.md">面试官：怎么设计一个部门表？.md</a>提交是一致的。不一样的地方是它不会锁定资源。所以在A处理完它的子事务，B可能还没有处理完它的子事务的时候，A可以接受其他的请求。在第二阶段，像两阶段提交一样，协调器会根据第一阶段ABC的返回结果去发送Confirm或者Cancel，这样的请求，最后ABC会返回ack。</p><p>优点：在try阶段如果失败，服务会回复至原状，什么意思呢？比如说要发一个会议邀请，如果用TCC的模式，第一阶段会先发一个询问的请求给所有的与会人员，询问是否可以在这一个时间点来参会，如果所有的参会人员都回答yes，第二步就会发送一个确认请求，实际的一个会议邀请，如果有任何一个人员不能参加，就会发送一个Cancel，取消这个会议。</p><p>缺点：</p><ol><li>它不是原子操作，它可以并行处理好多的分布式的事务，然后它在Confirm这个阶段，只能重试，如果有一个服务失败的话，只能重试，直到成功，或者是采取回退措施，需要人工去做干预。</li><li>它需要一个额外的try流程，服务需要提供额外的try的结构，也就需要提供额外的reserved的状态。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;转载自下面的文章，很容易理解，先保留一下，后面再继续完善&lt;br&gt;&lt;a href=&quot;https://www.upyun.com/opental</summary>
+      
+    
+    
+    
+    <category term="开发日志" scheme="https://www.loveasd.com/categories/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="分布式事务" scheme="https://www.loveasd.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
     
   </entry>
   
