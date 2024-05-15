@@ -1,325 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword"  content="">
-    <link rel="shortcut icon" href="/img/logo.png">
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <title>
-        
-          博客使用B2+CF作为图床 - undefined
-        
-    </title>
-
-    <link rel="canonical" href="https://www.loveasd.com/p/40faba9d.html">
-
-    <!-- Bootstrap Core CSS -->
+<html lang="zh-CN">
+  <head>
     
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-
-
-    <!-- Custom CSS --> 
-    
-<link rel="stylesheet" href="/css/beantech.min.css">
-
 
     
-<link rel="stylesheet" href="/css/donate.css">
-
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
     
-    <!-- Pygments Highlight CSS -->
-    
-<link rel="stylesheet" href="/css/highlight.css">
 
+<meta charset="utf-8" >
 
-    
-<link rel="stylesheet" href="/css/widget.css">
+<title>博客使用B2+CF作为图床</title>
+<meta name="keywords" content="博客使用B2+CF作为图床, 万物天空">
+<meta name="description" content="最近博客转为hexo搭建啦，完全静态博客！但是这个图片存储着实让我头疼。
+在14年的适合，陆陆续续使用过又拍云和七牛云。
+然后七牛那时候还是有临时链接的，只是用着用着突然就没办法用要绑定自己的域名，
+刚好那时候是在运营vpao.net，然后">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="博客使用B2+CF作为图床">
+<meta property="og:description" content="最近博客转为hexo搭建啦，完全静态博客！但是这个图片存储着实让我头疼。
+在14年的适合，陆陆续续使用过又拍云和七牛云。
+然后七牛那时候还是有临时链接的，只是用着用着突然就没办法用要绑定自己的域名，
+刚好那时候是在运营vpao.net，然后">
 
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
 
-    
-<link rel="stylesheet" href="/css/rocket.css">
-
-
-    
-<link rel="stylesheet" href="/css/signature.css">
-
-
-    
-<link rel="stylesheet" href="/css/toc.css">
-
-
-    <!-- Custom Fonts -->
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script>
-	</script>
-	<style>
-	* {
-            box-sizing: border-box;
-        }
-
-        form {
-            position: relative;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        input, button {
-            border: none;
-            outline: none;
-        }
-
-        input {
-            width: 100%;
-            height: 42px;
-            padding-left: 13px;
-        }
-
-        button {
-            height: 42px;
-            width: 42px;
-            cursor: pointer;
-            position: absolute;
-        }
-
-        /*搜索框1*/
-        .bar1 {
-			background: #FFF;
-			max-width: 200px;
-		}
-        .bar1 input {
-			max-height: 30px;
-            border: 2px solid #BFBFBF;
-            border-radius: 5px;
-            background: #FFFFFF;
-            color: #BFBFBF;
-			-webkit-text-fill-color: #BFBFBF;
-        }
-        .bar1 button {
-			max-height: 30px;
-            top: 0;
-            right: 0;
-            background: #BFBFBF;
-            border-radius: 0 5px 5px 0;
-        }
-        .bar1 button:before {
-            content: "\f002";
-            font-family: FontAwesome;
-            font-size: 16px;
-            color: #F9F0DA;
-        }
-		</style>
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
+  <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万物天空" type="application/atom+xml">
 </head>
+  <body>
+    <div id="app" class="main">
 
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://www.loveasd.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://www.loveasd.com">
+        <h1 class="site-title">万物天空</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
 
-
-<!-- hack iOS CSS :active style -->
-<!-- <body ontouchstart=""  class="<?php echo($_COOKIE['night'] == '1' ? '' : ''); ?>"> -->
-<body ontouchstart="">
-	<!-- Modified by Yu-Hsuan Yen -->
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        
-            background-image: url('')
-            /*post*/
-        
-    }
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
     
-</style>
-
-<header class="intro-header" >
-    <!-- Signature -->
-    <div id="signature">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                
-                    <div class="post-heading">
-                        <div class="tags">
-                            
-                              <a class="tag" href="/tags/#Backblaze" title="Backblaze">Backblaze</a>
-                            
-                              <a class="tag" href="/tags/#CloudFlare" title="CloudFlare">CloudFlare</a>
-                            
-                        </div>
-                        <h1>博客使用B2+CF作为图床</h1>
-                        <!-- <h2 class="subheading"></h2> -->
-                        <span class="meta">
-                            啊乐 on
-                            2023-05-12
-                        </span>
-                    </div>
-                
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-	
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"></a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <!-- Known Issue, found by Hux:
-            <nav>'s height woule be hold on by its content.
-            so, when navbar scale out, the <nav> will cover tags.
-            also mask any touch event of tags, unfortunately.
-        -->
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">主页</a>
-                    </li>
-					<li>
-                        <a href="/archive/">归档</a>
-                    </li>
-					<li>
-                        <a href="/tags/">标签</a>
-                    </li>
-					<li>
-                        <a href="/about/">关于</a>
-                    </li>
-					<!--
-					修改about在前面的问题
-                    
-                        
-                        <li>
-                            <a href="/archives/">归档</a>
-                        </li>
-                        
-                    
-                        
-                        <li>
-                            <a href="/says/">即刻短文</a>
-                        </li>
-                        
-                    
-                        
-                        <li>
-                            <a href="/links/">友情链接</a>
-                        </li>
-                        
-                    
-                        
-                        <li>
-                            <a href="/about/index - 副本.html">关于</a>
-                        </li>
-                        
-                    
-                        
-                        <li>
-                            <a href="/categories/">分类</a>
-                        </li>
-                        
-                    
-                        
-                        <li>
-                            <a href="/about/">关于</a>
-                        </li>
-                        
-                    
-                        
-                        <li>
-                            <a href="/tags/">标签</a>
-                        </li>
-                        
-                    
-                    -->
-                </ul>
-            </div>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
 </nav>
-<script>
-    // Drop Bootstarp low-performance Navbar
-    // Use customize navbar with high-quality material design animation
-    // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
-
-    $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
-        if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
-            $navbar.className = " ";
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        }else{
-        // OPEN
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
-        }
-    }
-</script>
+</div>
 
 
-    <!-- Main Content -->
-    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-            <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-				
-                <p>最近博客转为hexo搭建啦，完全静态博客！但是这个图片存储着实让我头疼。</p>
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">博客使用B2+CF作为图床</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-05-12</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/Backblaze/">
+              Backblaze
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/CloudFlare/">
+              CloudFlare
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>最近博客转为hexo搭建啦，完全静态博客！但是这个图片存储着实让我头疼。</p>
 <p>在14年的适合，陆陆续续使用过又拍云和七牛云。</p>
 <p>然后七牛那时候还是有临时链接的，只是用着用着突然就没办法用要绑定自己的域名，</p>
 <p>刚好那时候是在运营vpao.net，然后就绑定了上去，一直到高一，就没怎么管博客了。</p>
@@ -341,204 +129,99 @@
 <li>暂无其他说明</li>
 </ul>
 
-                
-                <hr>
-                <!-- Pager -->
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/p/c5eeaec6.html" data-toggle="tooltip" data-placement="top" title="记录一次线上服务事故">&larr; 上一篇</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/p/d87f7e0c.html" data-toggle="tooltip" data-placement="top" title="test">下一篇 &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                <br>
-
-                <!--打赏-->
-                
-                <!--打赏-->
-
-                <br>
-                <!--分享-->
-                
-                <!--分享-->
-                <br>                       
-                
-                <!-- require APlayer -->
-                
-            </div>
-            
-            <!-- Tabe of Content -->
-            <!-- Table of Contents -->
-
-                
-            <!-- Sidebar Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-
-                <!-- Friends Blog -->
-				<!--
-                
-				-->
-            </div>
         </div>
+          
+        <div class="top-div">
+          
+        </div>
+          
+      </div>
     </div>
-</article>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/p/d87f7e0c.html">
+          <h3 class="post-title">
+            下一篇：test
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+    <div id="gitalk-container"></div>
 
 
 
-<!-- chrome Firefox 中文锚点定位失效-->
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-<!-- smooth scroll behavior polyfill  -->
-<script type="text/javascript" src="/js/smoothscroll.js"></script>
+
+
+
 <script>
-        $('#toc').on('click','a',function(a){
-            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
-            // console.log(window.navigator.userAgent,isChrome)
-                // if(isChrome) {
-                    // console.log(a.currentTarget.outerHTML);
-                    // console.log($(a.currentTarget).attr("href"));
-                    //跳转到指定锚点
-                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
-                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
-                // }
-        })  
+    (function () {
+        const jq = document.createElement('script');
+        jq.src = "/js/twikoo.min.js";
+        document.getElementsByTagName('body')[0].appendChild(jq);
+
+        const config = {"envId":"https://wwtk-twikoo-o74lzzq47-zixingyx-gmailcom.vercel.app","region":null,"mark":null};
+        jq.onload = function () {
+            twikoo.init({
+                envId: config.envId,
+                el: '#gitalk-container',
+                region: config.region,
+                path: location.pathname + (config.mark ? '?mark=' + config.mark : ''),
+                lang: config.language,
+            });
+        }
+    })()
 </script>
 
 
-    <!-- Footer -->
-    <!-- Footer -->
+
+
 <footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                
-                
-                
-				
-				
-                
-
-                
-
-                
-
-                
-
-                </ul>
-                <p class="copyright text-muted">
-                    Copyright &copy; 啊乐 2024 
-                    <br>
-                    Theme by <a target="_blank" rel="noopener" href="http://www.huweihuang.com">Huwei Huang</a>
-                    re-Ported by <a target="_blank" rel="noopener" href="https://github.com/ztygalaxy">ztygalaxy</a>
-					
-                </p>
-            </div>
-        </div>
-    </div>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/paopao233" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
 </footer>
 
-<!-- jQuery -->
 
-<script src="/js/jquery.min.js"></script>
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
 
-
-<!-- Bootstrap Core JavaScript -->
-
-<script src="/js/bootstrap.min.js"></script>
-
-
-<!-- Custom Theme JavaScript -->
-
-<script src="/js/hux-blog.min.js"></script>
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-<!-- 
-     Because of the native support for backtick-style fenced code blocks 
-     right within the Markdown is landed in Github Pages, 
-     From V1.6, There is no need for Highlight.js, 
-     so Huxblog drops it officially.
-
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
--->
-<!--
-    <script>
-        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-            hljs.initHighlightingOnLoad();
-        })
-    </script>
-    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
--->
-
-
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async("https://www.loveasd.com/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-<!--fastClick.js -->
-<script>
-    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-
-<!-- Google Analytics -->
-
-
-
-
-<!-- Baidu Tongji -->
+<script src="/js/main.js"></script>
 
 
 
 
 
 
-	<a id="rocket" href="#top" class=""></a>
-	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
-    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
-	<script  type="text/javascript">
-<!-- Image to hack wechat -->
-<img src="https://www.loveasd.com/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
-
-</body>
-
+  </body>
 </html>
+
